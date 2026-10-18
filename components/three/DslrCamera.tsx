@@ -151,6 +151,7 @@ export const DslrCamera = forwardRef<THREE.Group, Props>(function DslrCamera({ s
   useLayoutEffect(() => {
     screenMat.map = screen;
     screenMat.transparent = true;
+    screenMat.opacity = screen ? 1 : 0;
     screenMat.needsUpdate = true;
     screenBg.color.set(screenColor);
   }, [screen, screenColor, screenMat, screenBg]);

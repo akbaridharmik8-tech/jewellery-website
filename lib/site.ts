@@ -19,9 +19,14 @@ export const waLink = (text: string) => `https://wa.me/${site.whatsapp}?text=${e
 
 /* --------------------------------------------------------------------------
    Portfolio, shown on the DSLR's screen and in "Selected work".
-   Replace `media` with your own shoots: put files in /public/work/ and use
-   { type: "image", src: "/work/x.jpg" } or { type: "video", src: "/work/x.mp4", poster: "/work/x.jpg" }.
-   `tone` is the backdrop colour behind transparent placeholder renders.
+
+   The photos below are TEMPORARY free-licence stock photos from Pexels
+   (https://www.pexels.com/license/), used until your own work is uploaded.
+   To use your work: put files in /public/work/ and set
+     media: { type: "image", src: "/work/x.jpg" }
+     media: { type: "video", src: "/work/x.mp4", poster: "/work/x.jpg" }
+   then delete the `credit` line (it prints "Placeholder photo · ...").
+   `fallback` is shown if a remote image ever fails to load.
    -------------------------------------------------------------------------- */
 export type Media = { type: "image"; src: string } | { type: "video"; src: string; poster?: string };
 
@@ -35,24 +40,35 @@ export type Work = {
   media: Media;
   tone: string;
   exif: string;
+  fallback: string;
+  credit?: string;
 };
 
+/** Pexels CDN URL for a photo id, resized on their side. */
+export const pexels = (id: number, w = 1920) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
+
 export const works: Work[] = [
-  { slug: "solitaire", title: "The Solitaire Edit", client: "Placeholder Jewellers", service: "Product photography", year: 2026, result: "+38% add-to-cart on PDPs", media: { type: "image", src: "/renders/solitaire-ring.png" }, tone: "#0c2620", exif: "ISO 100 · f/11 · 1/160s · 100mm macro" },
-  { slug: "riviera", title: "Riviera Campaign", client: "Placeholder Fine Jewels", service: "Campaign & social", year: 2026, result: "2.1M organic reach in 3 weeks", media: { type: "image", src: "/renders/riviera-necklace.png" }, tone: "#3a1d22", exif: "ISO 200 · f/8 · 1/125s · 85mm" },
-  { slug: "nisha", title: "Nisha Bridal Reels", client: "Placeholder Bridal House", service: "Reels & short film", year: 2025, result: "4.6x ROAS on Meta ads", media: { type: "image", src: "/renders/nisha-drops.png" }, tone: "#1c2b3a", exif: "4K · 120fps · 1/250s · 65mm" },
-  { slug: "line", title: "Line Tennis Launch", client: "Placeholder Diamonds", service: "3D visualisation", year: 2025, result: "Returns down 22% after 3D viewer", media: { type: "image", src: "/renders/tennis-bracelet.png" }, tone: "#141414", exif: "Rendered · 8K · path traced" },
-  { slug: "verde", title: "Verde Cocktail Rings", client: "Placeholder Atelier", service: "E-commerce shoot", year: 2025, result: "180 SKUs shot in 4 days", media: { type: "image", src: "/renders/emerald-ring.png" }, tone: "#e9e1d3", exif: "ISO 100 · f/16 · 1/200s · 100mm macro" },
-  { slug: "midnight", title: "Midnight Pendant", client: "Placeholder Gems", service: "Performance ads", year: 2024, result: "CPA cut from ₹2,400 to ₹890", media: { type: "image", src: "/renders/sapphire-necklace.png" }, tone: "#0f1a2e", exif: "ISO 160 · f/9 · 1/125s · 90mm" },
+  { slug: "solitaire", title: "The Solitaire Edit", client: "Placeholder Jewellers", service: "Product photography", year: 2026, result: "+38% add-to-cart on PDPs", media: { type: "image", src: pexels(8398936) }, tone: "#0b0b0b", exif: "ISO 100 · f/11 · 1/160s · 100mm macro", fallback: "/renders/solitaire-ring.png", credit: "The Glorious Studio / Pexels" },
+  { slug: "golden-hour", title: "Golden Hour Campaign", client: "Placeholder Fine Jewels", service: "Campaign & social", year: 2026, result: "2.1M organic reach in 3 weeks", media: { type: "image", src: pexels(5050491) }, tone: "#2a1a12", exif: "ISO 200 · f/2.8 · 1/250s · 85mm", fallback: "/renders/riviera-necklace.png", credit: "Ketut Subiyanto / Pexels" },
+  { slug: "nisha", title: "Nisha Bridal Reels", client: "Placeholder Bridal House", service: "Reels & short film", year: 2025, result: "4.6x ROAS on Meta ads", media: { type: "image", src: pexels(12144990) }, tone: "#1c1410", exif: "4K · 120fps · 1/250s · 65mm", fallback: "/renders/nisha-drops.png", credit: "Pexels" },
+  { slug: "line", title: "Line Tennis Launch", client: "Placeholder Diamonds", service: "3D visualisation", year: 2025, result: "Returns down 22% after 3D viewer", media: { type: "image", src: "/renders/tennis-bracelet.png" }, tone: "#141414", exif: "Rendered · 8K · path traced", fallback: "/renders/tennis-bracelet.png" },
+  { slug: "diamond-line", title: "Diamond Line E-store", client: "Placeholder Atelier", service: "E-commerce shoot", year: 2025, result: "180 SKUs shot in 4 days", media: { type: "image", src: pexels(12194325) }, tone: "#ece8e2", exif: "ISO 100 · f/16 · 1/200s · 100mm macro", fallback: "/renders/ruby-bracelet.png", credit: "Melike B / Pexels" },
+  { slug: "pearl", title: "Pearl Season", client: "Placeholder Gems", service: "Performance ads", year: 2024, result: "CPA cut from ₹2,400 to ₹890", media: { type: "image", src: pexels(11365012) }, tone: "#141414", exif: "ISO 160 · f/9 · 1/125s · 90mm", fallback: "/renders/sapphire-necklace.png", credit: "Pexels" },
 ];
 
+/** Image to show for a work item (video poster, or the image itself). */
+export const workStill = (w: Work) => (w.media.type === "video" ? (w.media.poster ?? w.fallback) : w.media.src);
+/** Our own transparent 3D renders are shown centred; real photos fill the frame. */
+export const isRender = (src: string) => src.startsWith("/renders/");
+
 export const services = [
-  { no: "01", title: "Jewellery photography", line: "Macro product, on-model and lifestyle shoots, lit for metal and stone, retouched to catalogue standard.", preview: "/renders/solitaire-ring.png" },
-  { no: "02", title: "Reels & campaign films", line: "Scroll-stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.", preview: "/renders/nisha-drops.png" },
-  { no: "03", title: "3D & AR product viewers", line: "Photoreal 3D of every SKU: spin it, change the metal, try it on in AR. No sample needed.", preview: "/renders/emerald-ring.png" },
-  { no: "04", title: "Social media management", line: "Content calendars, community and creator collaborations that keep your feed looking like a magazine.", preview: "/renders/riviera-necklace.png" },
-  { no: "05", title: "Performance ads", line: "Meta and Google campaigns built around festive and wedding seasons, measured to the rupee.", preview: "/renders/sapphire-necklace.png" },
-  { no: "06", title: "Websites & e-commerce", line: "Fast Shopify and Next.js storefronts with the product pages your photography deserves.", preview: "/renders/tennis-bracelet.png" },
+  { no: "01", title: "Jewellery photography", line: "Macro product, on-model and lifestyle shoots, lit for metal and stone, retouched to catalogue standard.", preview: pexels(8398936, 600), fallback: "/renders/solitaire-ring.png" },
+  { no: "02", title: "Reels & campaign films", line: "Scroll-stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.", preview: pexels(12144990, 600), fallback: "/renders/nisha-drops.png" },
+  { no: "03", title: "3D & AR product viewers", line: "Photoreal 3D of every SKU: spin it, change the metal, try it on in AR. No sample needed.", preview: "/renders/emerald-ring.png", fallback: "/renders/emerald-ring.png" },
+  { no: "04", title: "Social media management", line: "Content calendars, community and creator collaborations that keep your feed looking like a magazine.", preview: pexels(5050491, 600), fallback: "/renders/riviera-necklace.png" },
+  { no: "05", title: "Performance ads", line: "Meta and Google campaigns built around festive and wedding seasons, measured to the rupee.", preview: pexels(11365012, 600), fallback: "/renders/sapphire-necklace.png" },
+  { no: "06", title: "Websites & e-commerce", line: "Fast Shopify and Next.js storefronts with the product pages your photography deserves.", preview: pexels(12194325, 600), fallback: "/renders/tennis-bracelet.png" },
 ];
 
 // Placeholder numbers: replace with your real results before going live.

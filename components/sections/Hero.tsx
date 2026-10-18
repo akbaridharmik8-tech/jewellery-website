@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { useLenis } from "lenis/react";
 import { useRef, useState } from "react";
-import { site, works } from "@/lib/site";
+import { isRender, site, works, workStill } from "@/lib/site";
 import { MaskLines, EASE_LUXE } from "@/components/ui/Reveal";
 import { scrollToY } from "@/components/ui/scrollTo";
 import { useWebGL, WebGLBoundary } from "@/components/ui/webgl";
@@ -39,7 +39,7 @@ export default function Hero() {
   const backToCamera = () => scrollToY(lenis, trackY(0), 2.2);
 
   const first = works[0];
-  const firstSrc = first.media.type === "video" ? (first.media.poster ?? "/renders/solitaire-ring.png") : first.media.src;
+  const firstSrc = workStill(first);
 
   return (
     <section ref={track} id="top" data-header="dark" className="relative h-[300svh] bg-emerald">
@@ -59,7 +59,7 @@ export default function Hero() {
         <motion.div className="absolute inset-0" style={{ opacity: canvasOpacity }}>
           {(() => {
             const poster = (
-              <button type="button" onClick={openDisplay} className="absolute inset-0 cursor-pointer" aria-label="See our work">
+              <button type="button" onClick={openDisplay} className="absolute inset-0 cursor-pointer" tabIndex={-1} aria-hidden>
                 <Image src="/renders/camera-poster.png" alt="" fill sizes="100vw" className="object-contain object-[75%_45%] p-[12%] md:p-[8%]" priority />
               </button>
             );
@@ -71,8 +71,9 @@ export default function Hero() {
                   progress={scrollYProgress}
                   onOpen={openDisplay}
                   screenSrc={firstSrc}
+                  screenFallback={first.fallback}
                   screenTone={first.tone}
-                  screenFit={first.media.type === "image" && first.media.src.startsWith("/renders/") ? "contain" : "cover"}
+                  screenFit={isRender(firstSrc) ? "contain" : "cover"}
                 />
               </WebGLBoundary>
             );

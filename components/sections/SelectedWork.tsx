@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { works, type Work } from "@/lib/site";
+import { works, workStill, isRender, type Work } from "@/lib/site";
+import WorkImage from "@/components/ui/WorkImage";
 import { MaskLines, SectionLabel } from "@/components/ui/Reveal";
 import { useMedia } from "@/components/ui/useMedia";
 
@@ -15,9 +15,8 @@ function WorkCard({ w, i }: { w: Work; i: number }) {
   const sry = useSpring(ry, { stiffness: 150, damping: 18 });
   const px = useTransform(sry, [-8, 8], [-14, 14]);
   const py = useTransform(srx, [-8, 8], [14, -14]);
-  const src = w.media.type === "video" ? w.media.poster ?? "" : w.media.src;
-  const contain = src.startsWith("/renders/");
-  const light = w.tone === "#e9e1d3";
+  const src = workStill(w);
+  const light = w.tone === "#e9e1d3" || w.tone === "#ece8e2";
 
   return (
     <article className="w-(--card-w) shrink-0 snap-start">
@@ -37,9 +36,9 @@ function WorkCard({ w, i }: { w: Work; i: number }) {
           }}
         >
           <motion.div className="absolute inset-0" style={{ x: px, y: py, scale: 1.06 }}>
-            <Image src={src} alt={`${w.title} for ${w.client}`} fill sizes="(min-width: 900px) 31vw, 78vw" className={contain ? "object-contain p-[10%]" : "object-cover"} />
+            <WorkImage src={src} fallback={w.fallback} alt={`${w.title} for ${w.client}`} sizes="(min-width: 900px) 31vw, 78vw" containPadding="p-[10%]" />
           </motion.div>
-          <span className={`label absolute top-5 left-5 ${light ? "text-gold-ink" : "text-gold"}`}>
+          <span className={`label absolute top-5 left-5 rounded-full px-2.5 py-1 ${light || !isRender(src) ? "bg-ivory/85 text-gold-ink" : "text-gold"}`}>
             {String(i + 1).padStart(2, "0")} · {w.service}
           </span>
         </motion.div>
@@ -50,6 +49,7 @@ function WorkCard({ w, i }: { w: Work; i: number }) {
           <p className="mt-1 text-sm text-stone">
             {w.client} · {w.year}
           </p>
+          {w.credit && <p className="mt-1 text-[11px] text-stone/80">Placeholder photo · {w.credit}</p>}
         </div>
         <p className="text-[13px] leading-snug font-semibold text-gold-ink sm:mt-2 sm:max-w-[11rem] sm:text-right">{w.result}</p>
       </div>

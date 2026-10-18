@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { works } from "@/lib/site";
+import { works, workStill } from "@/lib/site";
+import WorkImage from "@/components/ui/WorkImage";
 import { EASE_LUXE } from "@/components/ui/Reveal";
 
 const SLIDE_MS = 5500;
@@ -45,8 +45,6 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
     return () => window.removeEventListener("keydown", onKey);
   }, [open, go]);
 
-  const contain = work.media.type === "image" && work.media.src.startsWith("/renders/");
-
   return (
     <section
       aria-roledescription="carousel"
@@ -85,26 +83,26 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
               loop
               playsInline
             />
-          ) : contain ? (
-            <div className="relative aspect-square w-[min(86vw,42svh)] md:w-[86svh] md:max-w-[86vw]">
-              <Image src={work.media.src} alt={`${work.title} for ${work.client}`} fill sizes="90vw" className="object-contain" priority={index === 0} loading="eager" />
-            </div>
           ) : (
-            <Image src={work.media.src} alt={`${work.title} for ${work.client}`} fill sizes="100vw" className="object-cover" priority={index === 0} loading="eager" />
+            <WorkImage
+              src={work.media.src}
+              fallback={work.fallback}
+              alt={`${work.title} for ${work.client}`}
+              sizes="100vw"
+              eager
+              containClassName="aspect-square w-[min(86vw,42svh)] md:w-[86svh] md:max-w-[86vw]"
+            />
           )}
         </motion.div>
       </AnimatePresence>
 
       {/* Warm the next slide's image so transitions never land on an empty frame */}
-      <div className="hidden" aria-hidden>
-        {(() => {
-          const next = works[(index + 1) % works.length];
-          return next.media.type === "image" ? <Image src={next.media.src} alt="" width={16} height={16} loading="eager" sizes="90vw" /> : null;
-        })()}
-      </div>
+      <link rel="preload" as="image" href={workStill(works[(index + 1) % works.length])} />
 
       {/* Vignette keeps the overlay text legible on any image */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgb(0_0_0/0.55)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
 
       {/* Thirds grid + focus brackets */}
       <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden>
@@ -187,6 +185,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
 
           <div className="flex flex-col items-start gap-4 md:items-end">
             <p className="text-[11px] tracking-[0.14em] text-ivory/65 uppercase tabular-nums">{work.exif}</p>
+            {work.credit && <p className="-mt-2 text-[11px] text-ivory/50">Placeholder photo · {work.credit}</p>}
             <div className="flex gap-2">
               {[
                 { dir: -1, label: "Previous project", d: "M15 6l-6 6 6 6" },

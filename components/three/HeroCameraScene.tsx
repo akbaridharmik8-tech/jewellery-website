@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ContactShadows, Sparkles, useTexture } from "@react-three/drei";
+import { ContactShadows, Sparkles } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import type { MotionValue } from "motion/react";
@@ -36,25 +36,49 @@ function fitTexture(tex: THREE.Texture, planeAspect: number, mode: "contain" | "
   tex.needsUpdate = true;
 }
 
+/** Loads the LCD image; if the remote photo fails (offline, CORS), uses the local render instead. */
+function useScreenTexture(src: string, fallback: string) {
+  const [state, setState] = useState<{ texture: THREE.Texture; fallback: boolean } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin("anonymous");
+    const done = (isFallback: boolean) => (t: THREE.Texture) => {
+      if (alive) setState({ texture: t, fallback: isFallback });
+      else t.dispose();
+    };
+    loader.load(src, done(false), undefined, () => {
+      if (src !== fallback) loader.load(fallback, done(true));
+    });
+    return () => {
+      alive = false;
+    };
+  }, [src, fallback]);
+  return state;
+}
+
 type RigProps = {
   progress: MotionValue<number>;
   reduced: boolean;
   drag: React.RefObject<number>;
   onOpen: () => void;
   screenSrc: string;
+  screenFallback: string;
   screenTone: string;
   screenFit: "contain" | "cover";
 };
 
-function Rig({ progress, reduced, drag, screenSrc, screenTone, screenFit }: RigProps) {
+function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, screenFit }: RigProps) {
   const dslr = useRef<THREE.Group>(null);
   const holder = useRef<THREE.Group>(null);
   const marker = useMemo(() => new THREE.Object3D(), []);
   const { camera, size } = useThree();
   const cam = camera as THREE.PerspectiveCamera;
 
-  const texture = useTexture(screenSrc);
-  useEffect(() => fitTexture(texture, LCD.width / LCD.height, screenFit), [texture, screenFit]);
+  const screen = useScreenTexture(screenSrc, screenFallback);
+  useEffect(() => {
+    if (screen) fitTexture(screen.texture, LCD.width / LCD.height, screen.fallback ? "contain" : screenFit);
+  }, [screen, screenFit]);
 
   const s = useRef({ intro: reduced ? 1 : 0, idle: 0, frozen: null as null | { from: number; to: number } });
   const tmp = useMemo(
@@ -136,7 +160,7 @@ function Rig({ progress, reduced, drag, screenSrc, screenTone, screenFit }: RigP
     <group ref={holder}>
       <DslrCamera
         ref={dslr}
-        screen={texture}
+        screen={screen?.texture ?? null}
         screenColor={screenTone}
       />
     </group>

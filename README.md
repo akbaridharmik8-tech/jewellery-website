@@ -29,6 +29,11 @@ Everything client-specific lives in **`lib/site.ts`**:
 | Process steps | `process` |
 | Client quotes | `testimonials` (**placeholders: replace with real quotes**) |
 
+### Placeholder photos (temporary)
+Until your own work is uploaded, the portfolio uses free-licence stock photos from [Pexels](https://www.pexels.com/license/), which allows free commercial use. They load straight from `images.pexels.com` and are captioned "Placeholder photo · …".
+- If a photo ever fails to load, the matching 3D render from `public/renders/` is shown instead, so nothing breaks.
+- **Replace them before launch.** A portfolio has to show *your* work.
+
 ### Adding your own photos and reels
 1. Put files in `public/work/`. Use JPG/WebP for photos and MP4 (H.264) for reels; keep reels under about 8 MB.
 2. In `works`, set `media` to one of:
@@ -36,8 +41,9 @@ Everything client-specific lives in **`lib/site.ts`**:
    { type: "image", src: "/work/bridal-01.jpg" }
    { type: "video", src: "/work/reel-01.mp4", poster: "/work/reel-01.jpg" }
    ```
-   Your own photos fill the screen edge to edge. The placeholder renders in `/renders/` are shown centred on their `tone` colour instead.
-3. The **first** item in `works` is also what the 3D camera's LCD shows before the zoom, so pick your strongest shot.
+   Then delete that item's `credit` line. Your photos fill the screen edge to edge; 3D renders in `/renders/` are shown centred on their `tone` colour.
+3. When no Pexels photos are left, you can remove the `remotePatterns` entry in `next.config.ts`.
+4. The **first** item in `works` is also what the 3D camera's LCD shows before the zoom, so pick your strongest shot.
 
 ### Colours, fonts, spacing
 The design tokens are at the top of `app/globals.css`. **`DESIGN.md`** explains the palette, contrast checks, type scale and motion rules. Read it before changing colours.

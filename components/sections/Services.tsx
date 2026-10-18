@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
 import { useState } from "react";
 import { services } from "@/lib/site";
 import { MaskLines, Reveal, SectionLabel } from "@/components/ui/Reveal";
+import WorkImage from "@/components/ui/WorkImage";
 
 export default function Services() {
   const [active, setActive] = useState<number | null>(null);
@@ -80,7 +80,7 @@ export default function Services() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
-              <Image src={services[active].preview} alt="" fill sizes="224px" className="object-contain p-4" />
+              <WorkImage src={services[active].preview} fallback={services[active].fallback} alt="" sizes="224px" containPadding="p-4" />
             </motion.div>
           )}
         </AnimatePresence>
