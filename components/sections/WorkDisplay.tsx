@@ -207,8 +207,8 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
           </div>
         </div>
 
-        {/* Segmented progress: also a jump-to control */}
-        <div className="mt-6 flex gap-1.5" role="group" aria-label="Choose a project">
+        {/* Segmented progress, also a jump-to control. On large screens each segment gets a thumbnail. */}
+        <div className="mt-6 flex gap-1.5 lg:gap-2.5" role="group" aria-label="Choose a project">
           {works.map((w, i) => (
             <button
               key={w.slug}
@@ -216,9 +216,17 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
               onClick={() => setIndex(i)}
               aria-label={`Show ${w.title}`}
               aria-current={i === index}
-              className="group relative h-6 flex-1"
+              className="group relative h-6 flex-1 lg:h-auto lg:w-14 lg:flex-none"
             >
-              <span className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 overflow-hidden rounded-full bg-ivory/20">
+              <span
+                className={`relative mb-2 hidden aspect-square w-14 overflow-hidden rounded-[2px] transition-[opacity,box-shadow] duration-300 lg:block ${
+                  i === index ? "opacity-100 ring-1 ring-gold" : "opacity-45 group-hover:opacity-80"
+                }`}
+                style={{ backgroundColor: w.tone }}
+              >
+                <WorkImage src={workStill(w)} fallback={w.fallback} alt="" sizes="56px" containPadding="p-1" />
+              </span>
+              <span className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 overflow-hidden rounded-full bg-ivory/20 lg:static lg:block lg:translate-y-0">
                 <span
                   key={i === index ? `run-${index}` : `idle-${i}`}
                   className="block h-full origin-left bg-gold"

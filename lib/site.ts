@@ -15,6 +15,12 @@ export const site = {
   social: { instagram: "#", behance: "#", youtube: "#", linkedin: "#" },
 };
 
+/**
+ * Real 3D camera for the hero. Set to null to use the built-in coded camera.
+ * File goes in /public/models/. `credit` is shown in the footer (required for CC-BY models).
+ */
+export const cameraModel: (import("@/components/three/DslrModel").CameraModelConfig & { credit: string; creditUrl: string }) | null = null;
+
 export const waLink = (text: string) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
 /* --------------------------------------------------------------------------

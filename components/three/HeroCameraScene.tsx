@@ -2,10 +2,11 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Sparkles } from "@react-three/drei";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import type { MotionValue } from "motion/react";
-import { DslrCamera, LCD } from "./DslrCamera";
+import { cameraModel } from "@/lib/site";
+import { CameraBody, PROCEDURAL_SCREEN, type ScreenRect } from "./DslrModel";
 import { StudioLights } from "./StudioLights";
 
 const TAU = Math.PI * 2;
@@ -75,10 +76,14 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
   const { camera, size } = useThree();
   const cam = camera as THREE.PerspectiveCamera;
 
+  // The screen rectangle comes from whichever camera is mounted (real GLB or built-in).
+  const [rect, setRect] = useState<ScreenRect>(PROCEDURAL_SCREEN);
+  const onRect = useCallback((r: ScreenRect) => setRect(r), []);
+
   const screen = useScreenTexture(screenSrc, screenFallback);
   useEffect(() => {
-    if (screen) fitTexture(screen.texture, LCD.width / LCD.height, screen.fallback ? "contain" : screenFit);
-  }, [screen, screenFit]);
+    if (screen) fitTexture(screen.texture, rect.width / rect.height, screen.fallback ? "contain" : screenFit);
+  }, [screen, screenFit, rect]);
 
   const s = useRef({ intro: reduced ? 1 : 0, idle: 0, frozen: null as null | { from: number; to: number } });
   const tmp = useMemo(
@@ -88,9 +93,9 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
 
   // Marker sits on the LCD surface; its world position is where we fly to.
   useEffect(() => {
-    marker.position.set(LCD.x, LCD.y, LCD.z - 0.01);
+    marker.position.set(rect.x, rect.y, rect.z - 0.01);
     dslr.current?.add(marker);
-  }, [marker]);
+  }, [marker, rect]);
 
   useFrame((state, dt) => {
     const st = s.current;
@@ -139,8 +144,8 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
     marker.getWorldPosition(tmp.lcd);
     const aspect = size.width / size.height;
     const endFov = 24;
-    const lcdW = LCD.width * scale;
-    const lcdH = LCD.height * scale;
+    const lcdW = rect.width * scale;
+    const lcdH = rect.height * scale;
     const visibleH = Math.min(lcdH, lcdW / aspect) * 0.97;
     const dist = visibleH / (2 * Math.tan(THREE.MathUtils.degToRad(endFov / 2)));
     tmp.home.set(0, 0.35, mobile ? 11.5 : 10);
@@ -158,11 +163,7 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
 
   return (
     <group ref={holder}>
-      <DslrCamera
-        ref={dslr}
-        screen={screen?.texture ?? null}
-        screenColor={screenTone}
-      />
+      <CameraBody ref={dslr} config={cameraModel} screen={screen?.texture ?? null} screenTone={screenTone} onRect={onRect} />
     </group>
   );
 }

@@ -63,6 +63,28 @@ The design tokens are at the top of `app/globals.css`. **`DESIGN.md`** explains 
 - Visitors who prefer reduced motion get no spin and no smooth scrolling, and the buttons jump straight to the work.
 - If a device has no WebGL, it sees a static poster image instead of a broken page.
 
+### Using a real 3D camera model
+The hero supports a real DSLR model (GLB) instead of the built-in coded camera:
+1. Put the file in `public/models/`, e.g. `public/models/dslr.glb`. Free CC-BY models from Sketchfab work: download them as **GLB/glTF**.
+2. In `lib/site.ts`, set `cameraModel`:
+   ```ts
+   export const cameraModel = {
+     src: "/models/dslr.glb",
+     rotation: [0, 0, 0],      // turn the file so the lens faces the viewer
+     screenMesh: "screen",     // part of the rear-LCD mesh/material name (optional)
+     credit: "Model name by Author (CC-BY)",
+     creditUrl: "https://sketchfab.com/...",
+   };
+   ```
+The model is auto-centred and scaled, and its rear screen gets your work image; the zoom flies into that screen. If the file fails to load, the built-in camera is used. The credit appears in the footer, which CC-BY models require.
+
+### Self-hosting work photos
+`scripts/fetch-work.mjs` downloads Pexels photos and converts them to WebP in `public/work/`. Run it with `NODE_USE_ENV_PROXY=1` behind a proxy:
+```bash
+node scripts/fetch-work.mjs review ./review 8398936 5050491    # preview JPEGs to look at first
+node scripts/fetch-work.mjs build solitaire=8398936           # public/work/solitaire.webp (+ -card.webp)
+```
+
 ### Regenerating the placeholder renders
 The PNGs in `public/renders/` are rendered from the same 3D models. To re-shoot them after changing a model or the `renders` list:
 

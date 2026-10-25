@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { cameraModel, site } from "@/lib/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -57,6 +57,14 @@ export default function Footer() {
       <div className="container-x mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-line-dark pt-6 text-[13px]">
         <p>
           © {year} {site.brand} Studio. All rights reserved.
+          {cameraModel && (
+            <>
+              {" "}· 3D camera model:{" "}
+              <a href={cameraModel.creditUrl} className="underline underline-offset-2 hover:text-gold" target="_blank" rel="noopener">
+                {cameraModel.credit}
+              </a>
+            </>
+          )}
         </p>
         <a href="#top" className="hover:text-gold">
           Back to top ↑
