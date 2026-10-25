@@ -47,7 +47,7 @@ export default function Contact() {
     <section id="contact" data-header="dark" className="grain relative bg-emerald py-[clamp(88px,11vw,160px)] text-ivory">
       <div className="container-x grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionLabel no="08" dark>
+          <SectionLabel no="07" dark>
             Start a project
           </SectionLabel>
           <h2 className="display mt-6 text-[clamp(2.8rem,6vw,6rem)]">

@@ -12,7 +12,6 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               {[
                 ["#services", "Services"],
-                ["#work", "Work"],
                 ["#3d", "3D viewers"],
                 ["#process", "Process"],
               ].map(([href, l]) => (

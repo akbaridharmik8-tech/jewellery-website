@@ -68,13 +68,117 @@ export const workStill = (w: Work) => (w.media.type === "video" ? (w.media.poste
 /** Our own transparent 3D renders are shown centred; real photos fill the frame. */
 export const isRender = (src: string) => src.startsWith("/renders/");
 
-export const services = [
-  { no: "01", title: "Jewellery photography", line: "Macro product, on-model and lifestyle shoots, lit for metal and stone, retouched to catalogue standard.", preview: pexels(8398936, 600), fallback: "/renders/solitaire-ring.png" },
-  { no: "02", title: "Reels & campaign films", line: "Scroll-stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.", preview: pexels(12144990, 600), fallback: "/renders/nisha-drops.png" },
-  { no: "03", title: "3D & AR product viewers", line: "Photoreal 3D of every SKU: spin it, change the metal, try it on in AR. No sample needed.", preview: "/renders/emerald-ring.png", fallback: "/renders/emerald-ring.png" },
-  { no: "04", title: "Social media management", line: "Content calendars, community and creator collaborations that keep your feed looking like a magazine.", preview: pexels(5050491, 600), fallback: "/renders/riviera-necklace.png" },
-  { no: "05", title: "Performance ads", line: "Meta and Google campaigns built around festive and wedding seasons, measured to the rupee.", preview: pexels(11365012, 600), fallback: "/renders/sapphire-necklace.png" },
-  { no: "06", title: "Websites & e-commerce", line: "Fast Shopify and Next.js storefronts with the product pages your photography deserves.", preview: pexels(12194325, 600), fallback: "/renders/tennis-bracelet.png" },
+/* --------------------------------------------------------------------------
+   Services journey: each service is a stop in the scroll-driven 3D section,
+   shown with the kind of work it produces (`layout` picks the mockup).
+   `shots` are TEMPORARY free Pexels photos (falling back to our renders);
+   replace with your own work: { src: "/work/x.webp", fallback: "/renders/..." }.
+   -------------------------------------------------------------------------- */
+export type Shot = { src: string; fallback: string; label?: string };
+export type ServiceLayout = "gallery" | "reels" | "render" | "phone" | "ads" | "browser";
+
+const R = {
+  ring: "/renders/solitaire-ring.png",
+  emerald: "/renders/emerald-ring.png",
+  necklace: "/renders/riviera-necklace.png",
+  sapphire: "/renders/sapphire-necklace.png",
+  drops: "/renders/nisha-drops.png",
+  diamondDrops: "/renders/diamond-drops.png",
+  tennis: "/renders/tennis-bracelet.png",
+  ruby: "/renders/ruby-bracelet.png",
+};
+
+export const services: {
+  no: string;
+  title: string;
+  line: string;
+  layout: ServiceLayout;
+  points: string[];
+  result: string;
+  shots: Shot[];
+}[] = [
+  {
+    no: "01",
+    title: "Jewellery photography",
+    line: "Macro product, on-model and lifestyle shoots, lit for metal and stone, retouched to catalogue standard.",
+    layout: "gallery",
+    points: ["Macro & white-background", "On-model & lifestyle", "Hand retouching"],
+    result: "+38% add-to-cart on product pages",
+    shots: [
+      { src: pexels(8398936, 1200), fallback: R.ring, label: "Solitaire · macro" },
+      { src: pexels(2735981, 900), fallback: R.emerald, label: "Pear diamond" },
+      { src: pexels(1457801, 900), fallback: R.tennis, label: "Pavé band" },
+    ],
+  },
+  {
+    no: "02",
+    title: "Reels & campaign films",
+    line: "Scroll-stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.",
+    layout: "reels",
+    points: ["Concept & script", "4K / 120fps shoots", "Edit, colour & sound"],
+    result: "2.1M organic reach in 3 weeks",
+    shots: [
+      { src: pexels(5050491, 900), fallback: R.necklace, label: "1.2M views" },
+      { src: pexels(14825057, 900), fallback: R.drops, label: "860K views" },
+      { src: pexels(19021379, 900), fallback: R.diamondDrops, label: "2.4M views" },
+    ],
+  },
+  {
+    no: "03",
+    title: "3D & AR product viewers",
+    line: "Photoreal 3D of every SKU: spin it, change the metal, try it on in AR. No sample needed.",
+    layout: "render",
+    points: ["Photoreal 3D models", "360° web viewers", "AR try-on"],
+    result: "Returns down 22% after 3D viewer",
+    shots: [
+      { src: R.emerald, fallback: R.emerald, label: "Live 3D" },
+      { src: R.tennis, fallback: R.tennis },
+      { src: R.necklace, fallback: R.necklace },
+    ],
+  },
+  {
+    no: "04",
+    title: "Social media management",
+    line: "Content calendars, community and creator collaborations that keep your feed looking like a magazine.",
+    layout: "phone",
+    points: ["Content calendar", "Daily posting & stories", "Community & creators"],
+    result: "+3,280 followers a month",
+    shots: [
+      { src: pexels(9509032, 500), fallback: R.necklace },
+      { src: pexels(12144990, 500), fallback: R.drops },
+      { src: pexels(11365012, 500), fallback: R.sapphire },
+      { src: pexels(10983783, 500), fallback: R.diamondDrops },
+      { src: pexels(6467618, 500), fallback: R.ring },
+      { src: pexels(39070291, 500), fallback: R.emerald },
+      { src: pexels(5376556, 500), fallback: R.ruby },
+      { src: pexels(3641056, 500), fallback: R.tennis },
+      { src: pexels(29228980, 500), fallback: R.necklace },
+    ],
+  },
+  {
+    no: "05",
+    title: "Performance ads",
+    line: "Meta and Google campaigns built around festive and wedding seasons, measured to the rupee.",
+    layout: "ads",
+    points: ["Meta & Google ads", "Festive & wedding campaigns", "Weekly ROAS reports"],
+    result: "4.6x return on ad spend",
+    shots: [
+      { src: pexels(12194325, 900), fallback: R.tennis, label: "Diamond Line Bracelet" },
+      { src: pexels(1191531, 900), fallback: R.ruby, label: "Festive Bangles" },
+    ],
+  },
+  {
+    no: "06",
+    title: "Websites & e-commerce",
+    line: "Fast Shopify and Next.js storefronts with the product pages your photography deserves.",
+    layout: "browser",
+    points: ["Shopify & Next.js", "Product pages that convert", "Speed & SEO"],
+    result: "1.8x conversion after redesign",
+    shots: [
+      { src: pexels(19646999, 1200), fallback: R.necklace, label: "Heritage Necklace" },
+      { src: pexels(15684108, 600), fallback: R.diamondDrops },
+    ],
+  },
 ];
 
 // Placeholder numbers: replace with your real results before going live.

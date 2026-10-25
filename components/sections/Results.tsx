@@ -31,7 +31,7 @@ export default function Results() {
   return (
     <section data-header="light" className="bg-ivory py-[clamp(88px,10vw,150px)]">
       <div className="container-x">
-        <SectionLabel no="05">In numbers</SectionLabel>
+        <SectionLabel no="03">In numbers</SectionLabel>
         <dl className="mt-12 grid grid-cols-2 border-t border-line-light lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06} className={`flex flex-col-reverse border-b border-line-light py-10 pr-4 lg:border-b-0 ${i % 2 ? "pl-6" : ""} lg:pl-0 ${i ? "lg:border-l lg:pl-8" : ""}`}>

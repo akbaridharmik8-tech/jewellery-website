@@ -8,7 +8,6 @@ import { EASE_LUXE } from "@/components/ui/Reveal";
 
 const NAV = [
   { href: "#services", label: "Services" },
-  { href: "#work", label: "Work" },
   { href: "#3d", label: "3D" },
   { href: "#process", label: "Process" },
   { href: "#contact", label: "Contact" },

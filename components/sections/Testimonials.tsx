@@ -12,7 +12,7 @@ export default function Testimonials() {
     <section data-header="light" className="bg-bone py-[clamp(88px,11vw,160px)]">
       <div className="container-x grid gap-12 md:grid-cols-12">
         <div className="md:col-span-3">
-          <SectionLabel no="07">Clients</SectionLabel>
+          <SectionLabel no="06">Clients</SectionLabel>
           <div className="mt-8 flex gap-2" role="group" aria-label="Choose a testimonial">
             {testimonials.map((_, k) => (
               <button

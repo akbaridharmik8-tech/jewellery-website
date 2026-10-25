@@ -24,7 +24,7 @@ Everything client-specific lives in **`lib/site.ts`**:
 |---|---|
 | Brand name, phone, WhatsApp number, email, address, socials | `site` |
 | Work shown on the camera screen and in "Selected work" | `works` |
-| Services list, marquee and hover previews | `services` |
+| Services journey (scroll section): name, pitch, key points, result and the work shown beside each service | `services` (`shots` = the images; `layout` = gallery, reels, render, phone feed, ads or browser) |
 | Numbers section | `stats` (**placeholders: replace with real results**) |
 | Process steps | `process` |
 | Client quotes | `testimonials` (**placeholders: replace with real quotes**) |

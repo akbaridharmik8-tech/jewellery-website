@@ -14,7 +14,7 @@ export default function Process() {
       <div className="container-x grid gap-14 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-32">
-            <SectionLabel no="06" dark>
+            <SectionLabel no="05" dark>
               Process
             </SectionLabel>
             <h2 className="display mt-6 text-[clamp(2.6rem,5vw,5rem)]">
