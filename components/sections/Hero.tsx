@@ -1,157 +1,84 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
-import { useLenis } from "lenis/react";
-import { useRef, useState } from "react";
-import { site, works, workStill } from "@/lib/site";
-import { MaskLines, EASE_LUXE } from "@/components/ui/Reveal";
-import { scrollToY } from "@/components/ui/scrollTo";
-import { useWebGL, WebGLBoundary } from "@/components/ui/webgl";
-import WorkDisplay from "./WorkDisplay";
-import { ArrowsHorizontalIcon, PlayIcon } from "@phosphor-icons/react/dist/ssr";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { site } from "@/lib/site";
+import { EASE_LUXE, MaskLines } from "@/components/ui/Reveal";
+import PendantRing from "./hero/PendantRing";
+import WorkViewer from "./WorkViewer";
 
-const HeroCameraScene = dynamic(() => import("@/components/three/HeroCameraScene"), { ssr: false });
-
-// Scroll choreography (fraction of the hero track):
-// 0.03–0.36 camera turns to show its screen · 0.20–0.60 dolly into the LCD
-// 0.58–0.68 display crossfades in · 0.68–1 display holds while you browse the work
-const OPEN_AT = 0.8;
-
+/**
+ * Light "atelier" hero: headline on the left, a real pendant photo hanging in a
+ * slowly turning ring of work in the centre, the pitch and one CTA on the right.
+ * Any photo in the ring opens the work viewer.
+ */
 export default function Hero() {
-  const track = useRef<HTMLElement>(null);
-  const lenis = useLenis();
-  const [open, setOpen] = useState(false);
-  const webgl = useWebGL();
-  const { scrollYProgress } = useScroll({ target: track, offset: ["start start", "end end"] });
+  const section = useRef<HTMLElement>(null);
+  const [viewer, setViewer] = useState<number | null>(null);
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches), []);
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.12], [0, -40]);
-  const canvasOpacity = useTransform(scrollYProgress, [0.6, 0.68], [1, 0]);
-  const displayOpacity = useTransform(scrollYProgress, [0.58, 0.68], [0, 1]);
-  useMotionValueEvent(scrollYProgress, "change", (p) => setOpen(p > 0.64));
-
-  const trackY = (fraction: number) => {
-    const el = track.current!;
-    return el.offsetTop + (el.offsetHeight - window.innerHeight) * fraction;
-  };
-  const openDisplay = () => scrollToY(lenis, trackY(OPEN_AT), 2.4);
-  const backToCamera = () => scrollToY(lenis, trackY(0), 2.2);
-
-  const first = works[0];
-  const firstSrc = workStill(first);
+  // Scrolling away adds a quarter turn to the ring and lifts the copy a little.
+  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end start"] });
+  const scrollTurn = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -60]);
 
   return (
-    <section ref={track} id="top" data-header="dark" className="relative h-[300svh] bg-onyx">
-      <div className="grain sticky top-0 h-svh overflow-hidden">
-        {/* Studio backdrop: a soft key light from above and a floor falloff, nothing decorative */}
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_62%_8%,rgb(206_184_136/0.14)_0%,transparent_55%),radial-gradient(140%_100%_at_50%_0%,#2d2926_0%,#222223_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
+    <section ref={section} id="top" data-header="light" className="paper relative overflow-hidden bg-ivory text-ink">
+      <div className="container-x relative grid min-h-svh items-center gap-8 pt-24 pb-12 lg:grid-cols-12 lg:gap-6 lg:pt-24 lg:pb-16">
+        {/* Headline */}
+        <motion.div className="relative z-10 lg:col-span-4" style={{ y: copyY }}>
+          <motion.p
+            className="label text-taupe"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {site.descriptor} · {site.city}
+          </motion.p>
+          <h1 className="display mt-6 text-[clamp(3.2rem,7vw,7rem)]">
+            <MaskLines
+              animateOnMount
+              delay={0.3}
+              lines={[
+                "We shoot",
+                "jewellery",
+                <>
+                  that <em className="text-taupe">sells.</em>
+                </>,
+              ]}
+            />
+          </h1>
+        </motion.div>
 
-        {/* Viewfinder frame */}
-        <div className="pointer-events-none absolute inset-3 md:inset-6" aria-hidden>
-          {["left-0 top-0 border-l border-t", "right-0 top-0 border-r border-t", "left-0 bottom-0 border-l border-b", "right-0 bottom-0 border-r border-b"].map((c) => (
-            <span key={c} className={`absolute h-6 w-6 border-champagne/40 md:h-10 md:w-10 ${c}`} />
-          ))}
+        {/* Pendant + ring of work */}
+        <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[440px] lg:col-span-5 lg:max-w-none">
+          <PendantRing scrollTurn={scrollTurn} reduced={reduced} onOpen={setViewer} />
         </div>
 
-        {/* 3D camera */}
-        <motion.div className="absolute inset-0" style={{ opacity: canvasOpacity }}>
-          {(() => {
-            const poster = (
-              <button type="button" onClick={openDisplay} className="absolute inset-0 cursor-pointer" tabIndex={-1} aria-hidden>
-                <Image src="/renders/camera-poster.png" alt="" fill sizes="100vw" className="object-contain object-[75%_45%] p-[12%] md:p-[8%]" priority />
-              </button>
-            );
-            if (webgl === false) return poster;
-            if (!webgl) return null;
-            return (
-              <WebGLBoundary fallback={poster}>
-                <HeroCameraScene
-                  progress={scrollYProgress}
-                  onOpen={openDisplay}
-                  screenSrc={firstSrc}
-                  screenTone={first.tone}
-                />
-              </WebGLBoundary>
-            );
-          })()}
-        </motion.div>
-
-        {/* Copy */}
+        {/* Pitch + CTA */}
         <motion.div
-          className="pointer-events-none absolute inset-0 text-ivory"
-          style={{ opacity: textOpacity, y: textY }}
+          className="relative z-10 lg:col-span-3 lg:self-end lg:pb-[12svh]"
+          style={{ y: copyY }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE_LUXE, delay: 1 }}
         >
-          <div className="container-x relative h-full">
-            <motion.p
-              className="label absolute top-24 text-champagne md:top-28"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-            >
-              {site.descriptor} · {site.city} · Since {site.since}
-            </motion.p>
-
-            <h1 className="display absolute top-40 text-[clamp(3.1rem,9.5vw,9.5rem)] md:top-auto md:bottom-[15svh]">
-              <MaskLines
-                animateOnMount
-                delay={0.35}
-                lines={[
-                  "We shoot",
-                  "jewellery",
-                  <>
-                    that <em className="text-champagne">sells.</em>
-                  </>,
-                ]}
-              />
-            </h1>
-
-            <motion.div
-              className="pointer-events-auto absolute right-[clamp(16px,4vw,56px)] bottom-8 left-[clamp(16px,4vw,56px)] flex flex-col gap-5 md:left-auto md:bottom-[15svh] md:w-[22rem]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.1, ease: EASE_LUXE }}
-            >
-              <p className="hidden text-base text-ivory/75 md:block">
-                Photography, reels, social and performance ads for jewellery brands. Built to make metal glow, stones sparkle and products sell.
-              </p>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                <button
-                  type="button"
-                  onClick={openDisplay}
-                  className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-champagne px-6 text-base font-semibold text-onyx transition-[background-color,transform] duration-300 hover:bg-ivory active:scale-[0.98]"
-                >
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-onyx text-champagne transition-transform duration-300 group-hover:scale-110">
-                    <PlayIcon weight="fill" className="ml-0.5 h-3 w-3" aria-hidden />
-                  </span>
-                  See our work
-                </button>
-              </div>
-            </motion.div>
-
-            <motion.p
-              className="label absolute left-1/2 hidden -translate-x-1/2 items-center gap-3 text-ivory/55 lg:flex"
-              style={{ bottom: "6svh" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.6, duration: 1 }}
-            >
-              <ArrowsHorizontalIcon className="h-4 w-4" aria-hidden />
-              Drag to rotate · Click or scroll to see the work
-            </motion.p>
-          </div>
-        </motion.div>
-
-        {/* The camera's screen, full-bleed */}
-        <motion.div
-          className={`absolute inset-0 ${open ? "" : "pointer-events-none"}`}
-          style={{ opacity: displayOpacity }}
-        >
-          <WorkDisplay open={open} onBack={backToCamera} />
+          <p className="hidden max-w-xs text-base text-taupe sm:block">
+            Photography, reels, social and performance ads for jewellery brands. Built to make metal glow, stones sparkle and products sell.
+          </p>
+          <button
+            type="button"
+            onClick={() => setViewer(0)}
+            className="inline-flex min-h-12 items-center gap-3 rounded-full bg-ink px-6 sm:mt-6 text-base font-semibold text-ivory transition-[background-color,transform] hover:bg-onyx active:scale-[0.98]"
+          >
+            See our work
+          </button>
+          <p className="mt-4 text-xs text-taupe">Tap any photo in the ring to open it.</p>
         </motion.div>
       </div>
+
+      <WorkViewer index={viewer} onIndex={setViewer} onClose={() => setViewer(null)} />
     </section>
   );
 }

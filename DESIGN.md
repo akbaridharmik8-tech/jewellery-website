@@ -57,12 +57,13 @@ These rules keep the site looking deliberate and premium rather than templated. 
 - **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` (`--ease-luxe`, also Tailwind's default transition curve). Reveals rise 32px over 0.7s; hover colour changes take 300ms, never under 200ms.
 - Animate **transform and opacity only**.
 - Motion should mean something: headlines rise from behind a mask, the statement fills in as you read, and the process line draws as you progress.
-- 3D scenes pause when off-screen. With `prefers-reduced-motion`, the camera doesn't spin, Lenis is off, and Motion skips transform animations.
+- With `prefers-reduced-motion`, the hero ring stays still, Lenis is off, and Motion skips transform animations.
 
-## 5. 3D
-- The only 3D element is the DSLR camera in the hero. 3D jewellery was removed at the owner's request: the work is shown as real photography.
-- The camera body stays matte black. The **champagne ring on the lens** is its only warm note, which ties it to the palette.
-- Keep the scene lightweight: `dpr ≤ 1.75` and 256px contact shadows, and pause rendering when it is off-screen.
+## 5. Hero
+- The hero is a light ivory "atelier" with a faint paper grain. A real pendant photo sits in a round champagne frame and hangs from a beaded chain. Eight work photos turn slowly around it.
+- Each tile's frame faces the centre while the photo inside stays upright. The ring takes about 90 seconds per turn, and scrolling adds a quarter turn. Hover or focus pauses it.
+- There is no 3D on the site. 3D jewellery and the 3D camera were removed at the owner's request, and the work is shown as real photography.
+- The layout was inspired by the "Lumière" concept on getlayers.ai. It is an original implementation in this site's palette and copy, not a copy of that paid template.
 
 ## 6. Things to avoid (they make a site look generic or AI-made)
 Glassmorphism cards, purple/blue gradient blobs, emoji icons, centred text everywhere, stock "rocket" illustrations, more than one accent colour per section, and drop shadows on everything.

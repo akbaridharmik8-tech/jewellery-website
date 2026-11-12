@@ -12,9 +12,9 @@ export type BrandColour = {
 };
 
 export const palette: BrandColour[] = [
-  { token: "ivory", name: "Ivory", pantone: "PANTONE 11-0602 TCX Snow White", hex: "#F2F0EB", role: "Page background. About 60% of every layout.", group: "Base" },
+  { token: "ivory", name: "Ivory", pantone: "PANTONE 11-0602 TCX Snow White", hex: "#F2F0EB", role: "Page background, including the hero. About 60% of every layout.", group: "Base" },
   { token: "cream", name: "Cream", pantone: "PANTONE 11-0507 TCX Winter White", hex: "#F5ECD2", role: "Alternate light sections, used as a 50% tint over ivory.", group: "Base" },
-  { token: "onyx", name: "Onyx", pantone: "PANTONE Black C", hex: "#2D2926", role: "Dark sections: hero, services, process, contact. About 30%.", group: "Dark" },
+  { token: "onyx", name: "Onyx", pantone: "PANTONE Black C", hex: "#2D2926", role: "Dark sections: services, process, contact. About 30%.", group: "Dark" },
   { token: "ink", name: "Ink", pantone: "PANTONE Neutral Black C", hex: "#222223", role: "Text on light backgrounds and the deepest darks.", group: "Dark" },
   { token: "champagne", name: "Champagne", pantone: "PANTONE 7502 C", hex: "#CEB888", role: "The accent: buttons, labels, one highlighted word. About 10%.", group: "Accent" },
   { token: "champagne-deep", name: "Deep champagne", pantone: "PANTONE 7503 C", hex: "#A89968", role: "Decorative detail; text only on dark backgrounds.", group: "Accent" },

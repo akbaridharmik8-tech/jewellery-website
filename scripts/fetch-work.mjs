@@ -4,8 +4,10 @@
 //     Saves a 1200px JPEG of each photo into <outDir> so they can be looked at first.
 //
 //   node scripts/fetch-work.mjs build <slug>=<id> [<slug>=<id> ...]
-//     Writes public/work/<slug>.webp (max 2400px, display) and
-//     public/work/<slug>-card.webp (900px wide, cards and thumbnails).
+//     Writes public/work/<slug>.webp (longest side max 2000px). next/image
+//     generates the smaller sizes from it, so one file per photo is enough.
+//
+// Behind a proxy, run with NODE_USE_ENV_PROXY=1.
 //
 // Pexels License: free for commercial use, no attribution required (we still credit).
 import sharp from "sharp";
@@ -47,9 +49,8 @@ if (mode === "review") {
   mkdirSync(out, { recursive: true });
   for (const pair of args) {
     const [slug, id] = pair.split("=");
-    const buf = await fetchPhoto(id, 2400);
-    await sharp(buf).resize({ width: 2400, height: 2400, fit: "inside", withoutEnlargement: true }).webp({ quality: 82 }).toFile(join(out, `${slug}.webp`));
-    await sharp(buf).resize({ width: 900, withoutEnlargement: true }).webp({ quality: 78 }).toFile(join(out, `${slug}-card.webp`));
+    const buf = await fetchPhoto(id, 2000);
+    await sharp(buf).resize({ width: 2000, height: 2000, fit: "inside", withoutEnlargement: true }).webp({ quality: 80 }).toFile(join(out, `${slug}.webp`));
     console.log(`built ${slug} (pexels ${id})`);
   }
 } else {

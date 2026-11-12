@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cameraModel, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -61,14 +61,6 @@ export default function Footer() {
       <div className="container-x mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-line-dark pt-6 text-xs">
         <p>
           © {year} {site.brand} Studio. All rights reserved.
-          {cameraModel && (
-            <>
-              {" "}· 3D camera model:{" "}
-              <a href={cameraModel.creditUrl} className="underline underline-offset-2 hover:text-champagne" target="_blank" rel="noopener">
-                {cameraModel.credit}
-              </a>
-            </>
-          )}
         </p>
         <nav aria-label="Legal" className="flex items-center gap-6">
           <Link href="/privacy" className="hover:text-champagne">
