@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export default function OgCard() {
   const still = useMotionValue(0);
   return (
-    <div className="paper relative flex h-[630px] w-[1200px] items-center overflow-hidden bg-ivory text-ink">
+    <div className="relative flex h-[630px] w-[1200px] items-center overflow-hidden text-ink">
       <div className="relative z-10 flex h-full w-[600px] flex-col justify-between p-16">
         <p className="flex items-baseline gap-3">
           <span className="display text-5xl leading-none">{site.brand}</span>

@@ -24,7 +24,7 @@ export default function Hero() {
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -60]);
 
   return (
-    <section ref={section} id="top" data-header="light" className="paper relative overflow-hidden bg-ivory text-ink">
+    <section ref={section} id="top" data-header="light" className="relative overflow-hidden text-ink">
       <div className="container-x relative grid min-h-svh items-center gap-8 pt-24 pb-12 lg:grid-cols-12 lg:gap-6 lg:pt-24 lg:pb-16">
         {/* Headline */}
         <motion.div className="relative z-10 lg:col-span-4" style={{ y: copyY }}>

@@ -74,7 +74,8 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menu, lenis]);
 
-  const onDark = dark || menu;
+  // Every landing section is light now; the dark styles remain for any future dark section.
+  const onDark = dark && !menu;
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-4">
@@ -141,7 +142,7 @@ export default function Header() {
           <motion.nav
             id="mobile-menu"
             aria-label="Mobile"
-            className="pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-between bg-onyx/95 px-4 pt-24 pb-10 text-ivory backdrop-blur-2xl md:hidden"
+            className="pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-between bg-ivory/95 px-4 pt-24 pb-10 text-ink backdrop-blur-2xl md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -159,9 +160,9 @@ export default function Header() {
                     href={`#${n.id}`}
                     onClick={() => setMenu(false)}
                     aria-current={current === n.id ? "true" : undefined}
-                    className={`display flex items-baseline gap-4 border-b border-line-dark py-3 text-5xl ${current === n.id ? "text-champagne" : ""}`}
+                    className={`display flex items-baseline gap-4 border-b border-line-light py-3 text-5xl ${current === n.id ? "text-taupe" : ""}`}
                   >
-                    <span className="label text-champagne">0{i + 1}</span>
+                    <span className="label text-taupe">0{i + 1}</span>
                     {n.label}
                   </a>
                 </motion.li>
@@ -171,11 +172,11 @@ export default function Header() {
               <a
                 href="#contact"
                 onClick={() => setMenu(false)}
-                className="flex min-h-12 items-center justify-center rounded-full bg-champagne text-base font-semibold text-onyx active:scale-[0.98]"
+                className="flex min-h-12 items-center justify-center rounded-full bg-ink text-base font-semibold text-ivory active:scale-[0.98]"
               >
                 Start a project
               </a>
-              <div className="space-y-2 text-sm text-greige">
+              <div className="space-y-2 text-sm text-taupe">
                 <p>{site.email}</p>
                 <p>{site.phone}</p>
               </div>

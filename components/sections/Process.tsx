@@ -10,17 +10,15 @@ export default function Process() {
   const { scrollYProgress } = useScroll({ target: list, offset: ["start 0.7", "end 0.6"] });
 
   return (
-    <section id="process" data-header="dark" className="grain relative bg-ink py-[clamp(88px,11vw,160px)] text-ivory">
+    <section id="process" data-header="light" className="relative border-t border-line-light py-[clamp(88px,11vw,160px)] text-ink">
       <div className="container-x grid gap-14 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-32">
-            <SectionLabel no="04" dark>
-              Process
-            </SectionLabel>
+            <SectionLabel no="04">Process</SectionLabel>
             <h2 className="display mt-6 text-[clamp(2.6rem,5vw,5rem)]">
               <MaskLines lines={["From brief", "to bestseller."]} />
             </h2>
-            <p className="mt-6 max-w-sm text-base text-greige">
+            <p className="mt-6 max-w-sm text-base text-taupe">
               Four steps, one point of contact, and a shared folder you can see from day one. Most shoots go from brief to delivery in under two weeks.
             </p>
           </div>
@@ -28,20 +26,20 @@ export default function Process() {
 
         <ol ref={list} className="relative md:col-span-6 md:col-start-7">
           {/* Progress rail drawn by scroll */}
-          <span className="absolute top-2 bottom-2 left-[11px] w-px bg-line-dark" aria-hidden />
+          <span className="absolute top-2 bottom-2 left-[11px] w-px bg-line-light" aria-hidden />
           <motion.span
-            className="absolute top-2 bottom-2 left-[11px] w-px origin-top bg-champagne"
+            className="absolute top-2 bottom-2 left-[11px] w-px origin-top bg-champagne-deep"
             style={{ scaleY: scrollYProgress }}
             aria-hidden
           />
           {process.map((p, i) => (
             <Reveal as="li" key={p.no} delay={i * 0.05} className="relative pb-16 pl-14 last:pb-0">
-              <span className="absolute top-1.5 left-0 grid h-[23px] w-[23px] place-items-center rounded-full border border-champagne bg-ink" aria-hidden>
-                <span className="h-1.5 w-1.5 rounded-full bg-champagne" />
+              <span className="absolute top-1.5 left-0 grid h-[23px] w-[23px] place-items-center rounded-full border border-champagne-deep bg-ivory" aria-hidden>
+                <span className="h-1.5 w-1.5 rounded-full bg-champagne-deep" />
               </span>
-              <p className="label text-champagne">Step {p.no}</p>
+              <p className="label text-taupe">Step {p.no}</p>
               <h3 className="display mt-3 text-[clamp(2rem,3.4vw,3rem)]">{p.title}</h3>
-              <p className="mt-3 max-w-md text-base text-greige">{p.line}</p>
+              <p className="mt-3 max-w-md text-base text-taupe">{p.line}</p>
             </Reveal>
           ))}
         </ol>

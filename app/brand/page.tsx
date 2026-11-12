@@ -18,7 +18,7 @@ const isDark = (hex: string) => {
 
 const SHARE = [
   { label: "Ivory & cream", pct: 60, hex: "#F2F0EB" },
-  { label: "Onyx & ink", pct: 30, hex: "#2D2926" },
+  { label: "Ink & onyx (type, buttons)", pct: 30, hex: "#2D2926" },
   { label: "Champagne", pct: 10, hex: "#CEB888" },
 ];
 

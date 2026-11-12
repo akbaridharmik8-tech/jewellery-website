@@ -11,7 +11,7 @@ export default function Testimonials() {
   const [i, setI] = useState(0);
   const t = testimonials[i];
   return (
-    <section data-header="light" className="bg-cream/50 py-[clamp(88px,11vw,160px)]">
+    <section data-header="light" className="border-t border-line-light py-[clamp(88px,11vw,160px)]">
       <div className="container-x grid gap-12 md:grid-cols-12">
         <div className="md:col-span-3">
           <SectionLabel no="05">Clients</SectionLabel>

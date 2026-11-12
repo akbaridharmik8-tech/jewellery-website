@@ -16,7 +16,7 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
-const card = "absolute overflow-hidden rounded-[0.35em] bg-ivory/[0.06] shadow-[0_2.5em_5em_-1.5em_rgb(0_0_0/0.7)]";
+const card = "absolute overflow-hidden rounded-[0.35em] bg-ivory/[0.06] shadow-[0_2.5em_5em_-1.5em_rgb(34_34_35/0.35)]";
 
 function Gallery({ shots }: { shots: Shot[] }) {
   return (
@@ -38,7 +38,7 @@ function Gallery({ shots }: { shots: Shot[] }) {
 function Phone({ children, w = 13, style }: { children: React.ReactNode; w?: number; style?: React.CSSProperties }) {
   return (
     <div
-      className="absolute rounded-[1.8em] bg-[#0a0a0a] p-[0.45em] shadow-[0_2.5em_5em_-1.5em_rgb(0_0_0/0.8)] ring-1 ring-white/10"
+      className="absolute rounded-[1.8em] bg-[#0a0a0a] p-[0.45em] shadow-[0_2.5em_5em_-1.5em_rgb(34_34_35/0.4)] ring-1 ring-white/10"
       style={{ width: `${w}em`, height: `${w * 1.95}em`, ...style }}
     >
       <div className="relative h-full w-full overflow-hidden rounded-[1.4em] bg-ivory/[0.06]">{children}</div>
@@ -112,7 +112,7 @@ function Social({ shots }: { shots: Shot[] }) {
 
 function Ads({ shots }: { shots: Shot[] }) {
   const ad = (s: Shot, style: React.CSSProperties, key: number) => (
-    <div key={key} className="absolute overflow-hidden rounded-[0.5em] bg-[#121212] text-ivory shadow-[0_2.5em_5em_-1.5em_rgb(0_0_0/0.8)] ring-1 ring-white/10" style={{ width: "17em", ...style }}>
+    <div key={key} className="absolute overflow-hidden rounded-[0.5em] bg-[#121212] text-ivory shadow-[0_2.5em_5em_-1.5em_rgb(34_34_35/0.4)] ring-1 ring-white/10" style={{ width: "17em", ...style }}>
       <div className="flex items-center gap-[0.6em] px-[0.9em] py-[0.7em]">
         <span className="display grid h-[2em] w-[2em] place-items-center rounded-full bg-onyx text-champagne">V</span>
         <span className="text-[0.8em] leading-tight">
@@ -148,7 +148,7 @@ function Ads({ shots }: { shots: Shot[] }) {
 function Browser({ shots }: { shots: Shot[] }) {
   return (
     <>
-      <div className="absolute overflow-hidden rounded-[0.6em] bg-ivory text-ink shadow-[0_2.5em_5em_-1.5em_rgb(0_0_0/0.8)]" style={{ width: "38em", height: "25em", left: "-21em", top: "-13em" }}>
+      <div className="absolute overflow-hidden rounded-[0.6em] bg-ivory text-ink shadow-[0_2.5em_5em_-1.5em_rgb(34_34_35/0.4)]" style={{ width: "38em", height: "25em", left: "-21em", top: "-13em" }}>
         <div className="flex items-center gap-[0.4em] bg-cream px-[0.9em] py-[0.6em]">
           {["#e46b5f", "#e5bd4f", "#62c15a"].map((c) => (
             <span key={c} className="h-[0.7em] w-[0.7em] rounded-full" style={{ background: c }} />

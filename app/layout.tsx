@@ -30,7 +30,7 @@ export const viewport: Viewport = { themeColor: "#2d2926" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body>
+      <body className="paper">
         <a
           href="#main"
           className="sr-only z-[100] rounded-full bg-champagne px-4 py-2 text-sm font-semibold text-onyx focus:not-sr-only focus:fixed focus:top-3 focus:left-3"

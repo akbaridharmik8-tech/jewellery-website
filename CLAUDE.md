@@ -8,7 +8,7 @@ Design work follows `.claude/skills/landing-page-design` (MIT, from elayadesign/
 The owner chose to apply the skill **selectively**. These brand decisions override the skill and must be kept:
 - **Fonts:** Instrument Serif for display headlines and big numbers, with an italic accent word allowed per headline. Manrope is used for all other text.
 - **Colour:** the Pantone-matched ivory, champagne and black palette in `DESIGN.md` and `lib/brand.ts`, including Black C (#2D2926) and Neutral Black C (#222223) for dark sections, in place of the skill's dark background list. Keep tokens, `lib/brand.ts` and the `/brand` page in sync.
-- **Lighting gradients:** used to suggest light: a champagne key light over onyx in the services journey, the pendant's metal frame, vignettes and photo scrims. Flat colour everywhere else.
+- **All-ivory landing page:** the hero's ivory and paper grain cover the whole page, with no dark sections and no background grid. The only gradient is the metal of the pendant frame.
 - **No 3D.** The owner removed the 3D jewellery and the 3D camera. The hero is a real pendant photo inside a turning ring of work photos, and all work is shown as photography.
 - **Display sizes:** may use fluid `clamp()` sizes. Body and UI text must land on the Tailwind type scale.
 

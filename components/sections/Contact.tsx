@@ -10,9 +10,9 @@ const BUDGETS = ["Under ₹50k", "₹50k to ₹2L", "₹2L to ₹5L", "₹5L+"];
 type Errors = Partial<Record<"name" | "phone", string>>;
 
 const inputCls =
-  "peer w-full border-0 border-b border-ivory/25 bg-transparent px-0 pt-6 pb-3 text-base text-ivory placeholder-transparent transition-colors focus:border-champagne focus:ring-0 focus:outline-none aria-[invalid=true]:border-[#e7a3ad]";
+  "peer w-full border-0 border-b border-ink/20 bg-transparent px-0 pt-6 pb-3 text-base text-ink placeholder-transparent transition-colors focus:border-ink focus:ring-0 focus:outline-none aria-[invalid=true]:border-[#9e2f3b]";
 const labelCls =
-  "pointer-events-none absolute top-0 left-0 text-xs font-semibold tracking-[0.14em] text-greige uppercase transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-xs peer-focus:font-semibold peer-focus:tracking-[0.14em] peer-focus:uppercase";
+  "pointer-events-none absolute top-0 left-0 text-xs font-semibold tracking-[0.14em] text-taupe uppercase transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-xs peer-focus:font-semibold peer-focus:tracking-[0.14em] peer-focus:uppercase";
 
 function Field({ id, label, error, ...rest }: { id: string; label: string; error?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -22,7 +22,7 @@ function Field({ id, label, error, ...rest }: { id: string; label: string; error
         {label}
       </label>
       {error && (
-        <p id={`${id}-err`} className="mt-2 text-sm text-[#f0b8c0]">
+        <p id={`${id}-err`} className="mt-2 text-sm text-[#9e2f3b]">
           {error}
         </p>
       )}
@@ -45,36 +45,34 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" data-header="dark" className="grain relative bg-onyx py-[clamp(88px,11vw,160px)] text-ivory">
+    <section id="contact" data-header="light" className="relative border-t border-line-light py-[clamp(88px,11vw,160px)] text-ink">
       <div className="container-x grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionLabel no="07" dark>
-            Start a project
-          </SectionLabel>
+          <SectionLabel no="07">Start a project</SectionLabel>
           <h2 className="display mt-6 text-[clamp(2.8rem,6vw,6rem)]">
-            <MaskLines lines={["Let’s make it", <em key="e" className="text-champagne">impossible</em>, "to scroll past."]} />
+            <MaskLines lines={["Let’s make it", <em key="e" className="text-taupe">impossible</em>, "to scroll past."]} />
           </h2>
           <Reveal>
             <dl className="mt-12 grid gap-6 text-base sm:grid-cols-2 lg:grid-cols-1">
               <div>
-                <dt className="label text-greige">WhatsApp / call</dt>
+                <dt className="label text-taupe">WhatsApp / call</dt>
                 <dd className="mt-2">
-                  <a className="underline decoration-champagne/50 underline-offset-4 hover:text-champagne" href={waLink("Hi! I'd like to discuss a project.")} target="_blank" rel="noopener">
+                  <a className="underline decoration-taupe/50 underline-offset-4 hover:text-taupe" href={waLink("Hi! I'd like to discuss a project.")} target="_blank" rel="noopener">
                     {site.phone}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="label text-greige">Email</dt>
+                <dt className="label text-taupe">Email</dt>
                 <dd className="mt-2">
-                  <a className="underline decoration-champagne/50 underline-offset-4 hover:text-champagne" href={`mailto:${site.email}`}>
+                  <a className="underline decoration-taupe/50 underline-offset-4 hover:text-taupe" href={`mailto:${site.email}`}>
                     {site.email}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="label text-greige">Studio</dt>
-                <dd className="mt-2 text-ivory/85">
+                <dt className="label text-taupe">Studio</dt>
+                <dd className="mt-2 text-ink">
                   {site.address[0]}
                   <br />
                   {site.address[1]}
@@ -127,26 +125,26 @@ export default function Contact() {
             <div className="relative">
               <select id="service" name="service" defaultValue={services[0].title} className={`${inputCls} appearance-none pr-8`}>
                 {services.map((s) => (
-                  <option key={s.no} className="bg-onyx text-ivory">
+                  <option key={s.no}>
                     {s.title}
                   </option>
                 ))}
-                <option className="bg-onyx text-ivory">Not sure yet</option>
+                <option>Not sure yet</option>
               </select>
-              <label htmlFor="service" className="label absolute top-0 left-0 text-greige">
+              <label htmlFor="service" className="label absolute top-0 left-0 text-taupe">
                 What do you need?
               </label>
-              <CaretDownIcon className="pointer-events-none absolute right-0 bottom-4 h-4 w-4 text-champagne" aria-hidden />
+              <CaretDownIcon className="pointer-events-none absolute right-0 bottom-4 h-4 w-4 text-taupe" aria-hidden />
             </div>
 
             <fieldset>
-              <legend className="label text-greige">Budget</legend>
+              <legend className="label text-taupe">Budget</legend>
               <div className="mt-4 flex flex-wrap gap-2">
                 {BUDGETS.map((b) => (
                   <label
                     key={b}
-                    className={`flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-champagne ${
-                      budget === b ? "border-champagne bg-champagne text-onyx" : "border-ivory/25 text-ivory/80 hover:border-champagne/60"
+                    className={`flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ink ${
+                      budget === b ? "border-ink bg-ink text-ivory" : "border-ink/20 text-ink/80 hover:border-ink/60"
                     }`}
                   >
                     <input type="radio" name="budget" value={b} checked={budget === b} onChange={() => setBudget(b)} className="sr-only" />
@@ -166,12 +164,12 @@ export default function Contact() {
             <div className="flex flex-wrap items-center gap-6">
               <button
                 type="submit"
-                className="inline-flex min-h-13 items-center gap-3 rounded-full bg-champagne px-7 py-3.5 text-base font-semibold text-onyx transition-[background-color,transform] hover:bg-ivory active:scale-[0.98]"
+                className="inline-flex min-h-13 items-center gap-3 rounded-full bg-ink px-7 py-3.5 text-base font-semibold text-ivory transition-[background-color,transform] hover:bg-onyx active:scale-[0.98]"
               >
                 Send brief on WhatsApp
                 <ArrowRightIcon weight="bold" className="h-4 w-4" aria-hidden />
               </button>
-              <p role="status" className="text-sm text-greige">
+              <p role="status" className="text-sm text-taupe">
                 {sent ? "Thanks! Your brief is ready in WhatsApp, just hit send." : "We reply within one working day."}
               </p>
             </div>

@@ -13,15 +13,15 @@ These rules keep the site looking deliberate and premium rather than templated. 
 | Token | Name | Pantone | HEX (screen) | Role |
 |---|---|---|---|---|
 | `ivory` | Ivory | 11-0602 TCX Snow White | #F2F0EB | Page background |
-| `cream` | Cream | 11-0507 TCX Winter White | #F5ECD2 | Alternate light sections, as a 50% tint over ivory |
-| `onyx` | Onyx | Black C | #2D2926 | Dark sections |
-| `ink` | Ink | Neutral Black C | #222223 | Text on light, deepest darks (marquee, process, footer) |
+| `cream` | Cream | 11-0507 TCX Winter White | #F5ECD2 | Soft fills behind photos and small surfaces |
+| `onyx` | Onyx | Black C | #2D2926 | Dark surfaces: work viewer, device mockups |
+| `ink` | Ink | Neutral Black C | #222223 | All text on ivory, primary buttons |
 | `champagne` | Champagne | 7502 C | #CEB888 | Accent: CTAs, labels, one highlighted word |
 | `champagne-deep` | Deep champagne | 7503 C | #A89968 | Decorative detail; text on dark only |
 | `taupe` | Taupe | Warm Gray 11 C | #6E6259 | Secondary text and labels on light |
 | `greige` | Greige | Warm Gray 2 C | #CBC4BC | Secondary text on dark |
 
-**Proportion (60 · 30 · 10):** 60% ivory and cream, 30% onyx and ink, 10% champagne. Dark and light sections alternate down the page to give it rhythm.
+**Proportion (60 · 30 · 10):** 60% ivory and cream, 30% ink and onyx, 10% champagne. The whole landing page sits on ivory with a faint paper grain, like the hero. Ink carries the type and primary buttons, and thin hairlines (`line-light`) separate the sections instead of colour blocks. Onyx is kept for dark surfaces such as the work viewer.
 
 **Contrast (WCAG 2.1, every pair used for text):**
 
@@ -38,8 +38,9 @@ These rules keep the site looking deliberate and premium rather than templated. 
 **Rules:**
 - Never put `champagne` or `champagne-deep` text on a light background (2.5 : 1). Use `taupe` or `ink` instead.
 - Champagne is for things that matter: CTAs, labels and one highlighted word. If it's everywhere, it stops meaning anything.
-- No decorative gradients. The only gradients are lighting: a soft champagne key light over onyx in the hero and the services journey, plus vignettes and photo scrims.
-- Form errors use a soft rose (`#F0B8C0` on dark). This is a functional colour, not part of the brand palette.
+- No background gradients and no background grids. The page is flat ivory with a faint paper grain. The only gradient is the metal of the pendant frame.
+- Form errors use a deep red (`#9E2F3B`, 6.3 : 1 on ivory). This is a functional colour, not part of the brand palette.
+- Focus rings are ink (2px), clearly visible on ivory.
 
 ## 2. Typography
 - **Display:** Instrument Serif, used for headlines, numbers and quotes. Tight leading (0.92) and slight negative tracking, set large (`clamp()` up to about 9.5rem). Italic is reserved for one emphasised word per headline.
