@@ -1,5 +1,6 @@
 import WorkImage from "@/components/ui/WorkImage";
 import type { ServiceLayout, Shot } from "@/lib/site";
+import { EyeIcon, HeartIcon, PlayIcon, UserPlusIcon } from "@phosphor-icons/react/dist/ssr";
 
 /*
   Work mockups for each service stop. Sizes are in `em`, so the parent's
@@ -61,10 +62,10 @@ function Reels({ shots }: { shots: Shot[] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
           <span className="absolute top-[0.9em] left-[0.9em] text-[0.8em] font-semibold tracking-wide text-ivory">Reels</span>
           <span className="absolute top-1/2 left-1/2 grid h-[3em] w-[3em] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/25 backdrop-blur-sm">
-            <svg viewBox="0 0 10 10" className="ml-[0.15em] h-[1.1em] w-[1.1em] text-white" aria-hidden><path d="M1 0l9 5-9 5z" fill="currentColor" /></svg>
+            <PlayIcon weight="fill" className="ml-[0.15em] h-[1.1em] w-[1.1em] text-white" aria-hidden />
           </span>
           <span className="absolute bottom-[1em] left-[0.9em] flex items-center gap-[0.4em] text-[0.85em] font-semibold text-ivory">
-            <svg viewBox="0 0 24 24" className="h-[1.1em] w-[1.1em]" aria-hidden><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="12" cy="12" r="3" fill="currentColor" /></svg>
+            <EyeIcon weight="bold" className="h-[1.1em] w-[1.1em]" aria-hidden />
             {s.label}
           </span>
         </Phone>
@@ -122,11 +123,11 @@ function Social({ shots }: { shots: Shot[] }) {
         </div>
       </Phone>
       <div className="absolute flex items-center gap-[0.6em] rounded-full bg-ivory px-[1em] py-[0.6em] text-[0.95em] font-semibold text-ink shadow-xl" style={{ left: "7em", top: "-12em", transform: "translateZ(140px)" }}>
-        <svg viewBox="0 0 24 24" className="h-[1.2em] w-[1.2em] text-garnet" aria-hidden><path d="M12 21s-7.5-4.6-9.6-9.3A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.6 5.7C19.5 16.4 12 21 12 21z" fill="currentColor" /></svg>
+        <HeartIcon weight="fill" className="h-[1.2em] w-[1.2em] text-garnet" aria-hidden />
         12.4k likes
       </div>
       <div className="absolute flex items-center gap-[0.6em] rounded-full bg-gold px-[1em] py-[0.6em] text-[0.95em] font-semibold text-emerald shadow-xl" style={{ left: "-19em", top: "5em", transform: "translateZ(180px)" }}>
-        <svg viewBox="0 0 24 24" className="h-[1.2em] w-[1.2em]" aria-hidden><path d="M16 11a4 4 0 1 0-8 0M3 20c0-3 4-5 9-5s9 2 9 5M19 8v6M16 11h6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+        <UserPlusIcon weight="bold" className="h-[1.2em] w-[1.2em]" aria-hidden />
         +3,280 followers
       </div>
     </>

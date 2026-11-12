@@ -4,6 +4,8 @@ export const site = {
   brand: "Verdane",
   descriptor: "Jewellery Marketing Studio",
   tagline: "We make jewellery impossible to scroll past.",
+  // Your live domain, e.g. "https://verdane.studio". Used for share previews; leave "" until you have one.
+  url: "",
   // International format, digits only (e.g. 919876543210).
   whatsapp: "910000000000",
   phone: "+91 00000 00000",
@@ -12,7 +14,14 @@ export const site = {
   address: ["Studio 4, Heritage Arcade", "Zaveri Bazaar, Mumbai 400002"],
   since: 2016,
   locale: "en-IN",
-  social: { instagram: "#", behance: "#", youtube: "#", linkedin: "#" },
+  // Leave a link empty ("") to hide it; no dead "#" links are shown.
+  social: { instagram: "", behance: "", youtube: "", linkedin: "" },
+  /**
+   * Stats, client quotes and project results on this site are SAMPLES until you
+   * replace them with your own. While true, each one carries a visible "Sample" tag.
+   * Set to false only once every figure and quote is real.
+   */
+  sampleContent: true,
 };
 
 /**
@@ -55,11 +64,11 @@ export const pexels = (id: number, w = 1920) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
 
 export const works: Work[] = [
-  { slug: "solitaire", title: "The Solitaire Edit", client: "Placeholder Jewellers", service: "Product photography", year: 2026, result: "+38% add-to-cart on PDPs", media: { type: "image", src: pexels(8398936) }, tone: "#0b0b0b", exif: "ISO 100 · f/11 · 1/160s · 100mm macro", fallback: "/renders/solitaire-ring.png", credit: "The Glorious Studio / Pexels" },
+  { slug: "solitaire", title: "The Solitaire Edit", client: "Placeholder Jewellers", service: "Product photography", year: 2026, result: "+38% add to cart on PDPs", media: { type: "image", src: pexels(8398936) }, tone: "#0b0b0b", exif: "ISO 100 · f/11 · 1/160s · 100mm macro", fallback: "/renders/solitaire-ring.png", credit: "The Glorious Studio / Pexels" },
   { slug: "golden-hour", title: "Golden Hour Campaign", client: "Placeholder Fine Jewels", service: "Campaign & social", year: 2026, result: "2.1M organic reach in 3 weeks", media: { type: "image", src: pexels(5050491) }, tone: "#2a1a12", exif: "ISO 200 · f/2.8 · 1/250s · 85mm", fallback: "/renders/riviera-necklace.png", credit: "Ketut Subiyanto / Pexels" },
   { slug: "nisha", title: "Nisha Bridal Reels", client: "Placeholder Bridal House", service: "Reels & short film", year: 2025, result: "4.6x ROAS on Meta ads", media: { type: "image", src: pexels(12144990) }, tone: "#1c1410", exif: "4K · 120fps · 1/250s · 65mm", fallback: "/renders/nisha-drops.png", credit: "Pexels" },
   { slug: "line", title: "Line Tennis Launch", client: "Placeholder Diamonds", service: "3D visualisation", year: 2025, result: "Returns down 22% after 3D viewer", media: { type: "image", src: "/renders/tennis-bracelet.png" }, tone: "#141414", exif: "Rendered · 8K · path traced", fallback: "/renders/tennis-bracelet.png" },
-  { slug: "diamond-line", title: "Diamond Line E-store", client: "Placeholder Atelier", service: "E-commerce shoot", year: 2025, result: "180 SKUs shot in 4 days", media: { type: "image", src: pexels(12194325) }, tone: "#ece8e2", exif: "ISO 100 · f/16 · 1/200s · 100mm macro", fallback: "/renders/ruby-bracelet.png", credit: "Melike B / Pexels" },
+  { slug: "diamond-line", title: "Diamond Line Online Store", client: "Placeholder Atelier", service: "Ecommerce shoot", year: 2025, result: "180 SKUs shot in 4 days", media: { type: "image", src: pexels(12194325) }, tone: "#ece8e2", exif: "ISO 100 · f/16 · 1/200s · 100mm macro", fallback: "/renders/ruby-bracelet.png", credit: "Melike B / Pexels" },
   { slug: "pearl", title: "Pearl Season", client: "Placeholder Gems", service: "Performance ads", year: 2024, result: "CPA cut from ₹2,400 to ₹890", media: { type: "image", src: pexels(11365012) }, tone: "#141414", exif: "ISO 160 · f/9 · 1/125s · 90mm", fallback: "/renders/sapphire-necklace.png", credit: "Pexels" },
 ];
 
@@ -102,8 +111,8 @@ export const services: {
     title: "Jewellery photography",
     line: "Macro product, on-model and lifestyle shoots, lit for metal and stone, retouched to catalogue standard.",
     layout: "gallery",
-    points: ["Macro & white-background", "On-model & lifestyle", "Hand retouching"],
-    result: "+38% add-to-cart on product pages",
+    points: ["Macro on white", "On model & lifestyle", "Hand retouching"],
+    result: "+38% add to cart on product pages",
     shots: [
       { src: pexels(8398936, 1200), fallback: R.ring, label: "Solitaire · macro" },
       { src: pexels(2735981, 900), fallback: R.emerald, label: "Pear diamond" },
@@ -113,7 +122,7 @@ export const services: {
   {
     no: "02",
     title: "Reels & campaign films",
-    line: "Scroll-stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.",
+    line: "Scroll stopping 9:16 reels, launch films and bridal stories, scripted, shot and edited in house.",
     layout: "reels",
     points: ["Concept & script", "4K / 120fps shoots", "Edit, colour & sound"],
     result: "2.1M organic reach in 3 weeks",
@@ -128,7 +137,7 @@ export const services: {
     title: "3D & AR product viewers",
     line: "Photoreal 3D of every SKU: spin it, change the metal, try it on in AR. No sample needed.",
     layout: "render",
-    points: ["Photoreal 3D models", "360° web viewers", "AR try-on"],
+    points: ["Photoreal 3D models", "360° web viewers", "AR try on"],
     result: "Returns down 22% after 3D viewer",
     shots: [
       { src: R.emerald, fallback: R.emerald, label: "Live 3D" },
@@ -169,7 +178,7 @@ export const services: {
   },
   {
     no: "06",
-    title: "Websites & e-commerce",
+    title: "Websites & ecommerce",
     line: "Fast Shopify and Next.js storefronts with the product pages your photography deserves.",
     layout: "browser",
     points: ["Shopify & Next.js", "Product pages that convert", "Speed & SEO"],
@@ -190,7 +199,7 @@ export const stats = [
 ];
 
 export const process = [
-  { no: "01", title: "Brief & moodboard", line: "A 30-minute call, then a moodboard with lighting refs, props and shot list within 48 hours." },
+  { no: "01", title: "Brief & moodboard", line: "A 30 minute call, then a moodboard with lighting refs, props and shot list within 48 hours." },
   { no: "02", title: "Shoot", line: "Controlled macro studio for product, location and models for campaign. You can join live on video." },
   { no: "03", title: "Retouch & 3D", line: "Dust, reflections and metal tones corrected by hand. 3D models built from the same references." },
   { no: "04", title: "Launch & scale", line: "Assets cut for every placement, ads launched, and a weekly report on what is selling." },
@@ -200,7 +209,23 @@ export const process = [
 export const testimonials = [
   { quote: "Our diamonds finally look the way they do under the loupe. The first reel did more for us than a year of posting.", name: "Client Name", detail: "Founder, Placeholder Jewellers" },
   { quote: "They understand metal. Yellow gold looks warm, platinum looks cold, and nothing looks fake. That is rarer than it sounds.", name: "Client Name", detail: "Marketing Head, Placeholder Fine Jewels" },
-  { quote: "The 3D viewer cut our 'is this the real colour?' calls almost to zero. Customers just spin it and buy.", name: "Client Name", detail: "E-commerce Lead, Placeholder Diamonds" },
+  { quote: "The 3D viewer cut our 'is this the real colour?' calls almost to zero. Customers just spin it and buy.", name: "Client Name", detail: "Ecommerce Lead, Placeholder Diamonds" },
+];
+
+/* --------------------------------------------------------------------------
+   FAQ. Anything in {{double braces}} is a fact only you can supply (prices,
+   timings, policies); it shows highlighted on the site until you replace it.
+   The FAQ schema for search engines is added once no {{placeholders}} remain.
+   -------------------------------------------------------------------------- */
+export const faq: { q: string; a: string }[] = [
+  { q: "How much does a jewellery shoot cost?", a: "Product photography starts at {{price per piece}}. Campaigns, reels and 3D are quoted per project after a 30 minute call, and every quote is itemised so you can see where the budget goes." },
+  { q: "How soon do we get the final photos?", a: "A standard product shoot is delivered in {{turnaround time}}. Campaigns take longer because of planning, models and locations, so you get a dated schedule with the quote." },
+  { q: "Do we send our jewellery to your studio?", a: "Either works. We shoot at our studio in " + site.city + " or at your store. {{How pieces are logged, insured and returned}}" },
+  { q: "Can you match our existing brand style?", a: "Yes. We start from your current catalogue and brand guidelines and share a moodboard for you to approve before anything is shot." },
+  { q: "What do you need from us for 3D product viewers?", a: "Clear photos of each piece from several angles, plus the metal, stone and size details. We build the 3D model from those references and send it for your approval." },
+  { q: "Do you also run our Instagram and ads?", a: "Yes. Book a single service, or hand us content, posting and ads together as a monthly plan starting at {{monthly plan price}}." },
+  { q: "Who owns the photos and videos?", a: "Usage is set out in every quote. {{Your standard ownership and usage terms}}" },
+  { q: "What if we are not happy with the edits?", a: "{{Your revision policy, for example how many retouching rounds are included}}" },
 ];
 
 /* --------------------------------------------------------------------------

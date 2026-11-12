@@ -20,7 +20,7 @@ export default function Process() {
             <h2 className="display mt-6 text-[clamp(2.6rem,5vw,5rem)]">
               <MaskLines lines={["From brief", "to bestseller."]} />
             </h2>
-            <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-mist">
+            <p className="mt-6 max-w-sm text-base text-mist">
               Four steps, one point of contact, and a shared folder you can see from day one. Most shoots go from brief to delivery in under two weeks.
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function Process() {
               </span>
               <p className="label text-gold">Step {p.no}</p>
               <h3 className="display mt-3 text-[clamp(2rem,3.4vw,3rem)]">{p.title}</h3>
-              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-mist">{p.line}</p>
+              <p className="mt-3 max-w-md text-base text-mist">{p.line}</p>
             </Reveal>
           ))}
         </ol>

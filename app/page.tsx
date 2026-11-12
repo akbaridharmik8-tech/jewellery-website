@@ -7,6 +7,7 @@ import ThreeDDemo from "@/components/sections/ThreeDDemo";
 import Results from "@/components/sections/Results";
 import Process from "@/components/sections/Process";
 import Testimonials from "@/components/sections/Testimonials";
+import Faq from "@/components/sections/Faq";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -14,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <Marquee />
         <Statement />
@@ -23,6 +24,7 @@ export default function Home() {
         <ThreeDDemo />
         <Process />
         <Testimonials />
+        <Faq />
         <Contact />
       </main>
       <Footer />

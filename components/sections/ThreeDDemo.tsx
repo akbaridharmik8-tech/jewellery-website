@@ -6,6 +6,7 @@ import { useState } from "react";
 import { metals, stones, waLink, type MetalKey, type StoneKey } from "@/lib/site";
 import { MaskLines, Reveal, SectionLabel } from "@/components/ui/Reveal";
 import { useWebGL, WebGLBoundary } from "@/components/ui/webgl";
+import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 
 const ConfiguratorScene = dynamic(() => import("@/components/three/ConfiguratorScene"), { ssr: false });
 
@@ -72,8 +73,8 @@ export default function ThreeDDemo() {
             <MaskLines lines={["Your catalogue,", <em key="e" className="text-gold">in three dimensions.</em>]} />
           </h2>
           <Reveal>
-            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-mist">
-              This ring isn&rsquo;t a photo. It&rsquo;s a real-time 3D model we built from references, the same way we&rsquo;d build yours. Drag it, then change the metal and the stone.
+            <p className="mt-6 max-w-md text-base text-mist">
+              This ring isn&rsquo;t a photo. It&rsquo;s a live 3D model we built from references, the same way we&rsquo;d build yours. Drag it, then change the metal and the stone.
             </p>
           </Reveal>
           <Reveal className="mt-10 space-y-8" delay={0.1}>
@@ -85,12 +86,10 @@ export default function ThreeDDemo() {
               href={waLink("Hi! I'd like 3D product viewers for my jewellery catalogue.")}
               target="_blank"
               rel="noopener"
-              className="mt-10 inline-flex min-h-12 items-center gap-3 rounded-full bg-gold px-6 text-[15px] font-semibold text-emerald transition-colors hover:bg-ivory"
+              className="mt-10 inline-flex min-h-12 items-center gap-3 rounded-full bg-gold px-6 text-base font-semibold text-emerald transition-colors hover:bg-ivory"
             >
               Get 3D for your catalogue
-              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-                <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ArrowRightIcon weight="bold" className="h-4 w-4" aria-hidden />
             </a>
           </Reveal>
         </div>

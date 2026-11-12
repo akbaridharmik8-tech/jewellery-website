@@ -4,6 +4,7 @@ import { animate, useInView } from "motion/react";
 import { useEffect, useRef } from "react";
 import { stats } from "@/lib/site";
 import { Reveal, SectionLabel } from "@/components/ui/Reveal";
+import { SampleNote } from "@/components/ui/Sample";
 
 function Count({ to, decimals = 0, suffix }: { to: number; decimals?: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -16,7 +17,7 @@ function Count({ to, decimals = 0, suffix }: { to: number; decimals?: number; su
       el.textContent = to.toFixed(decimals);
       return;
     }
-    const c = animate(0, to, { duration: 2, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => (el.textContent = v.toFixed(decimals)) });
+    const c = animate(0, to, { duration: 2, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => (el.textContent = v.toFixed(decimals)) });
     return () => c.stop();
   }, [inView, to, decimals]);
   return (
@@ -42,6 +43,7 @@ export default function Results() {
             </Reveal>
           ))}
         </dl>
+        <SampleNote>These figures are samples. Replace them with your real results before launch.</SampleNote>
       </div>
     </section>
   );

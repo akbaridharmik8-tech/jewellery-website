@@ -25,7 +25,10 @@ Everything client-specific lives in **`lib/site.ts`**:
 | Brand name, phone, WhatsApp number, email, address, socials | `site` |
 | Work shown on the camera screen and in "Selected work" | `works` |
 | Services journey (scroll section): name, pitch, key points, result and the work shown beside each service | `services` (`shots` = the images; `layout` = gallery, reels, render, phone feed, ads or browser) |
-| Numbers section | `stats` (**placeholders: replace with real results**) |
+| Numbers section | `stats` (**samples: replace with real results**) |
+| FAQ questions and answers | `faq` (anything in `{{double braces}}` is a fact only you can supply; it shows highlighted until replaced) |
+| "Sample" tags on stats, quotes and results | `site.sampleContent` (set to `false` once every figure and quote is real) |
+| Live domain for share previews | `site.url` |
 | Process steps | `process` |
 | Client quotes | `testimonials` (**placeholders: replace with real quotes**) |
 
@@ -44,6 +47,11 @@ Until your own work is uploaded, the portfolio uses free-licence stock photos fr
    Then delete that item's `credit` line. Your photos fill the screen edge to edge; 3D renders in `/renders/` are shown centred on their `tone` colour.
 3. When no Pexels photos are left, you can remove the `remotePatterns` entry in `next.config.ts`.
 4. The **first** item in `works` is also what the 3D camera's LCD shows before the zoom, so pick your strongest shot.
+
+### Before launch
+- Replace every `{{placeholder}}` in `lib/site.ts` (FAQ) and in `app/privacy` and `app/terms`, and have the legal pages reviewed.
+- Replace sample stats, quotes and results, then set `site.sampleContent = false`.
+- Fill in `site.social` (empty links are hidden) and `site.url`.
 
 ### Colours, fonts, spacing
 The design tokens are at the top of `app/globals.css`. **`DESIGN.md`** explains the palette, contrast checks, type scale and motion rules. Read it before changing colours.
@@ -84,6 +92,9 @@ The model is auto-centred and scaled, and its rear screen gets your work image; 
 node scripts/fetch-work.mjs review ./review 8398936 5050491    # preview JPEGs to look at first
 node scripts/fetch-work.mjs build solitaire=8398936           # public/work/solitaire.webp (+ -card.webp)
 ```
+
+### Regenerating the share image
+`app/opengraph-image.jpg` is a screenshot of the internal page `/studio/og`. After changing the brand name or headline, open that page at 1200×630 and save a new screenshot as `app/opengraph-image.jpg`.
 
 ### Regenerating the placeholder renders
 The PNGs in `public/renders/` are rendered from the same 3D models. To re-shoot them after changing a model or the `renders` list:

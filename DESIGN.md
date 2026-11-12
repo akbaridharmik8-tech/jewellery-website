@@ -1,5 +1,7 @@
 # Design guidelines
 
+The site follows the **landing-page-design** skill (`.claude/skills/landing-page-design`, MIT, from elayadesign/ai-design-skills), applied selectively. Its rules for copy, type scale, spacing, motion curve, states, navigation and ship requirements apply. The brand exceptions below (serif display font, emerald palette, lighting gradients) are deliberate owner decisions, and `CLAUDE.md` lists them.
+
 These rules keep the site looking deliberate and premium rather than templated. Follow them when you add or change anything.
 
 ## 1. Colour: emerald, champagne, garnet
@@ -47,7 +49,7 @@ The neutrals are tinted warm (toward gold) rather than pure white or grey, so ev
 - Touch targets are at least 44 × 44px, and there's no horizontal scroll at 375px.
 
 ## 4. Motion
-- **Easing:** `cubic-bezier(.16, 1, .3, 1)` (`--ease-luxe`). Reveals take about 0.9–1.1s, UI feedback about 0.3s.
+- **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` (`--ease-luxe`, also Tailwind's default transition curve). Reveals rise 32px over 0.7s; hover colour changes take 300ms, never under 200ms.
 - Animate **transform and opacity only**.
 - Motion should mean something: headlines rise from behind a mask, the statement fills in as you read, and the process line draws as you progress.
 - 3D scenes pause when off-screen. With `prefers-reduced-motion`, the camera doesn't spin, Lenis is off, and Motion skips transform animations.

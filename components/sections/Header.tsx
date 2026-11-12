@@ -7,32 +7,32 @@ import { site } from "@/lib/site";
 import { EASE_LUXE } from "@/components/ui/Reveal";
 
 const NAV = [
-  { href: "#services", label: "Services" },
-  { href: "#3d", label: "3D" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
+  { id: "services", label: "Services" },
+  { id: "3d", label: "3D" },
+  { id: "process", label: "Process" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact" },
 ];
 
-/** Reads the `data-header` of whichever section sits under the bar, so it is legible on dark and light. */
+/**
+ * A compact pill that floats off the top edge (landing-page-design B7): translucent
+ * over a blur, tinted for the section beneath it, with the current section marked.
+ */
 export default function Header() {
   const [dark, setDark] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
+  const [current, setCurrent] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const lenis = useLenis();
 
+  // Light or dark tint: read the `data-header` of the section under the bar (rAF throttled).
   useEffect(() => {
     let raf = 0;
     const check = () => {
       raf = 0;
-      setScrolled(window.scrollY > 24);
-      const hero = document.getElementById("top");
-      setPastHero(!!hero && hero.getBoundingClientRect().bottom < 80);
-      const sections = document.querySelectorAll<HTMLElement>("[data-header]");
-      for (const s of sections) {
+      for (const s of document.querySelectorAll<HTMLElement>("[data-header]")) {
         const r = s.getBoundingClientRect();
-        if (r.top <= 36 && r.bottom > 36) {
+        if (r.top <= 40 && r.bottom > 40) {
           setDark(s.dataset.header === "dark");
           break;
         }
@@ -42,6 +42,24 @@ export default function Header() {
     check();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Current section for the nav (B9): whichever nav section crosses the middle of the screen.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setCurrent(e.target.id);
+          else setCurrent((c) => (c === e.target.id ? null : c));
+        }
+      },
+      { rootMargin: "-50% 0px -50% 0px" },
+    );
+    NAV.forEach((n) => {
+      const el = document.getElementById(n.id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -58,43 +76,45 @@ export default function Header() {
   }, [menu, lenis]);
 
   const onDark = dark || menu;
-  // Over the hero the bar floats; elsewhere it gets a tinted backdrop matching the section below it.
-  const solid = scrolled && (pastHero || !dark) && !menu;
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${onDark ? "text-ivory" : "text-ink"} ${
-        solid
-          ? onDark
-            ? "border-b border-line-dark bg-emerald/80 backdrop-blur-md"
-            : "border-b border-line-light bg-ivory/85 backdrop-blur-md"
-          : "border-b border-transparent"
-      }`}
-    >
-      <div className="container-x flex h-16 items-center justify-between md:h-20">
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-4">
+      <div
+        className={`pointer-events-auto flex w-full items-center justify-between gap-6 rounded-full border py-2 pr-2 pl-6 backdrop-blur-xl transition-colors duration-500 md:w-auto ${
+          onDark ? "border-ivory/10 bg-emerald/70 text-ivory" : "border-ink/10 bg-ivory/75 text-ink"
+        }`}
+      >
         <a href="#top" className="flex items-baseline gap-2" aria-label={`${site.brand} home`}>
-          <span className="display text-[1.9rem] leading-none tracking-[-0.01em]">{site.brand}</span>
+          <span className="display text-3xl leading-none">{site.brand}</span>
           <span className={`label hidden sm:inline ${onDark ? "text-gold" : "text-gold-ink"}`}>Studio</span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-9 text-[14px] font-medium">
-            {NAV.map((n) => (
-              <li key={n.href}>
-                <a href={n.href} className="group relative py-2">
-                  {n.label}
-                  <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100" />
-                </a>
-              </li>
-            ))}
+          <ul className="flex items-center gap-1">
+            {NAV.map((n) => {
+              const active = current === n.id;
+              return (
+                <li key={n.id}>
+                  <a
+                    href={`#${n.id}`}
+                    aria-current={active ? "true" : undefined}
+                    className={`relative flex min-h-10 items-center rounded-full px-3 text-sm font-medium transition-colors ${
+                      active ? (onDark ? "bg-ivory/10 text-gold" : "bg-ink/5 text-gold-ink") : onDark ? "hover:bg-ivory/10" : "hover:bg-ink/5"
+                    }`}
+                  >
+                    {n.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         <div className="flex items-center gap-2">
           <a
             href="#contact"
-            className={`hidden min-h-11 items-center rounded-full border px-5 text-[14px] font-semibold transition-colors md:inline-flex ${
-              onDark ? "border-gold/60 text-gold hover:bg-gold hover:text-emerald" : "border-ink/80 hover:bg-ink hover:text-ivory"
+            className={`hidden min-h-10 items-center rounded-full px-4 text-sm font-semibold transition-[background-color,color,transform] active:scale-[0.98] md:inline-flex ${
+              onDark ? "bg-gold text-emerald hover:bg-ivory" : "bg-ink text-ivory hover:bg-emerald"
             }`}
           >
             Start a project
@@ -102,49 +122,64 @@ export default function Header() {
           <button
             ref={toggle}
             type="button"
-            className="grid h-11 w-11 place-items-center md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full md:hidden"
             aria-expanded={menu}
             aria-controls="mobile-menu"
             aria-label={menu ? "Close menu" : "Open menu"}
             onClick={() => setMenu((m) => !m)}
           >
             <span className="relative block h-3 w-6">
-              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-300 ${menu ? "top-1.5 rotate-45" : "top-0"}`} />
-              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-300 ${menu ? "top-1.5 -rotate-45" : "top-3"}`} />
+              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-500 ${menu ? "top-1.5 rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-500 ${menu ? "top-1.5 -rotate-45" : "top-3"}`} />
             </span>
           </button>
         </div>
       </div>
 
+      {/* Mobile: a full-height panel, links arriving one after another (60ms apart, under 400ms total) */}
       <AnimatePresence>
         {menu && (
           <motion.nav
             id="mobile-menu"
             aria-label="Mobile"
-            className="fixed inset-0 top-16 z-40 flex flex-col justify-between bg-emerald px-4 pt-8 pb-10 text-ivory md:hidden"
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease: EASE_LUXE }}
+            className="pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-between bg-emerald/95 px-4 pt-24 pb-10 text-ivory backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: EASE_LUXE }}
           >
             <ul className="space-y-1">
               {NAV.map((n, i) => (
                 <motion.li
-                  key={n.href}
+                  key={n.id}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.05, duration: 0.6, ease: EASE_LUXE }}
+                  transition={{ delay: i * 0.06, duration: 0.16, ease: EASE_LUXE }}
                 >
-                  <a href={n.href} onClick={() => setMenu(false)} className="display flex items-baseline gap-4 border-b border-line-dark py-3 text-5xl">
+                  <a
+                    href={`#${n.id}`}
+                    onClick={() => setMenu(false)}
+                    aria-current={current === n.id ? "true" : undefined}
+                    className={`display flex items-baseline gap-4 border-b border-line-dark py-3 text-5xl ${current === n.id ? "text-gold" : ""}`}
+                  >
                     <span className="label text-gold">0{i + 1}</span>
                     {n.label}
                   </a>
                 </motion.li>
               ))}
             </ul>
-            <div className="space-y-2 text-sm text-mist">
-              <p>{site.email}</p>
-              <p>{site.phone}</p>
+            <div className="space-y-6">
+              <a
+                href="#contact"
+                onClick={() => setMenu(false)}
+                className="flex min-h-12 items-center justify-center rounded-full bg-gold text-base font-semibold text-emerald active:scale-[0.98]"
+              >
+                Start a project
+              </a>
+              <div className="space-y-2 text-sm text-mist">
+                <p>{site.email}</p>
+                <p>{site.phone}</p>
+              </div>
             </div>
           </motion.nav>
         )}

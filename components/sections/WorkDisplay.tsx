@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { works, workStill } from "@/lib/site";
 import WorkImage from "@/components/ui/WorkImage";
 import { EASE_LUXE } from "@/components/ui/Reveal";
+import { CaretLeftIcon, CaretRightIcon, PlayIcon, TrendUpIcon } from "@phosphor-icons/react/dist/ssr";
+import { SampleTag } from "@/components/ui/Sample";
 
 const SLIDE_MS = 5500;
 
@@ -126,20 +128,18 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
       </div>
 
       {/* Top chrome */}
-      <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-4 px-4 pt-20 text-[11px] tracking-[0.18em] uppercase md:px-10 md:pt-24">
+      <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-4 px-4 pt-20 text-xs tracking-[0.18em] uppercase md:px-10 md:pt-24">
         <button
           type="button"
           onClick={onBack}
           className="group flex min-h-11 items-center gap-2 rounded-full border border-ivory/25 bg-black/20 px-4 backdrop-blur-sm transition-colors hover:border-gold hover:text-gold"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden>
-            <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <CaretLeftIcon className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden />
           Back to camera
         </button>
         <div className="flex items-center gap-4 font-medium tabular-nums">
           <span className="flex items-center gap-2">
-            <svg viewBox="0 0 10 10" className="h-2 w-2" aria-hidden><path d="M1 0l9 5-9 5z" fill="currentColor" /></svg>
+            <PlayIcon weight="fill" className="h-2.5 w-2.5" aria-hidden />
             Playback
           </span>
           <span aria-live={paused ? "polite" : "off"}>
@@ -174,22 +174,23 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
               <p className="mt-3 text-sm text-ivory/75">
                 {work.client} · {work.year}
               </p>
-              <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-[13px] font-semibold text-emerald">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-                  <path d="M4 16l5-5 4 4 7-8M15 7h5v5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                {work.result}
+              <p className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-semibold text-emerald">
+                  <TrendUpIcon weight="bold" className="h-4 w-4" aria-hidden />
+                  {work.result}
+                </span>
+                <SampleTag dark />
               </p>
             </motion.div>
           </AnimatePresence>
 
           <div className="flex flex-col items-start gap-4 md:items-end">
-            <p className="text-[11px] tracking-[0.14em] text-ivory/65 uppercase tabular-nums">{work.exif}</p>
-            {work.credit && <p className="-mt-2 text-[11px] text-ivory/50">Placeholder photo · {work.credit}</p>}
+            <p className="text-xs tracking-[0.14em] text-ivory/65 uppercase tabular-nums">{work.exif}</p>
+            {work.credit && <p className="-mt-2 text-xs text-ivory/50">Placeholder photo · {work.credit}</p>}
             <div className="flex gap-2">
               {[
-                { dir: -1, label: "Previous project", d: "M15 6l-6 6 6 6" },
-                { dir: 1, label: "Next project", d: "M9 6l6 6-6 6" },
+                { dir: -1, label: "Previous project" },
+                { dir: 1, label: "Next project" },
               ].map((b) => (
                 <button
                   key={b.dir}
@@ -198,9 +199,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
                   aria-label={b.label}
                   className="grid h-12 w-12 place-items-center rounded-full border border-ivory/30 transition-colors hover:border-gold hover:bg-gold hover:text-emerald"
                 >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                    <path d={b.d} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  {b.dir < 0 ? <CaretLeftIcon className="h-5 w-5" aria-hidden /> : <CaretRightIcon className="h-5 w-5" aria-hidden />}
                 </button>
               ))}
             </div>

@@ -2,13 +2,13 @@
 
 import { motion } from "motion/react";
 
-export const EASE_LUXE = [0.16, 1, 0.3, 1] as const;
+export const EASE_LUXE = [0.22, 1, 0.36, 1] as const;
 
 /** Fade + rise on first view. Transform/opacity only. */
 export function Reveal({
   children,
   delay = 0,
-  y = 28,
+  y = 32,
   className,
   as = "div",
 }: {
@@ -25,7 +25,7 @@ export function Reveal({
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 0.9, ease: EASE_LUXE, delay }}
+      transition={{ duration: 0.7, ease: EASE_LUXE, delay }}
     >
       {children}
     </M>

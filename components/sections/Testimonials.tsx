@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { testimonials } from "@/lib/site";
 import { SectionLabel } from "@/components/ui/Reveal";
+import { QuotesIcon } from "@phosphor-icons/react/dist/ssr";
+import { SampleTag } from "@/components/ui/Sample";
 
 export default function Testimonials() {
   const [i, setI] = useState(0);
@@ -21,7 +23,7 @@ export default function Testimonials() {
                 onClick={() => setI(k)}
                 aria-label={`Testimonial ${k + 1}`}
                 aria-pressed={k === i}
-                className={`grid h-11 w-11 place-items-center rounded-full border text-[13px] font-semibold tabular-nums transition-colors ${
+                className={`grid h-11 w-11 place-items-center rounded-full border text-xs font-semibold tabular-nums transition-colors ${
                   k === i ? "border-ink bg-ink text-ivory" : "border-ink/25 text-ink/70 hover:border-ink"
                 }`}
               >
@@ -37,11 +39,9 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <svg viewBox="0 0 48 36" className="h-8 w-10 text-gold-ink" aria-hidden>
-                <path d="M0 36V20C0 8 7 1 18 0v7c-6 1-9 5-9 11h9v18zm27 0V20C27 8 34 1 45 0v7c-6 1-9 5-9 11h9v18z" fill="currentColor" />
-              </svg>
+              <QuotesIcon weight="fill" className="h-10 w-10 text-gold-ink" aria-hidden />
               <blockquote className="display mt-8 text-[clamp(2rem,4vw,3.8rem)] leading-[1.1]">{t.quote}</blockquote>
               <figcaption className="mt-10 flex items-center gap-4 text-sm">
                 <span className="h-px w-10 bg-ink/40" />
@@ -49,6 +49,7 @@ export default function Testimonials() {
                   <strong className="font-semibold">{t.name}</strong>
                   <span className="text-stone">, {t.detail}</span>
                 </span>
+                <SampleTag />
               </figcaption>
             </motion.div>
           </AnimatePresence>

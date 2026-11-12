@@ -1,9 +1,8 @@
 import { services } from "@/lib/site";
+import { DiamondIcon } from "@phosphor-icons/react/dist/ssr";
 
 const Gem = () => (
-  <svg viewBox="0 0 24 24" className="mx-8 h-4 w-4 shrink-0 text-gold/70" aria-hidden>
-    <path d="M6 4h12l4 5-10 11L2 9z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-  </svg>
+  <DiamondIcon weight="light" className="mx-8 h-4 w-4 shrink-0 text-gold/70" aria-hidden />
 );
 
 export default function Marquee() {

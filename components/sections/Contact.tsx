@@ -3,15 +3,16 @@
 import { useState } from "react";
 import { services, site, waLink } from "@/lib/site";
 import { MaskLines, Reveal, SectionLabel } from "@/components/ui/Reveal";
+import { ArrowRightIcon, CaretDownIcon } from "@phosphor-icons/react/dist/ssr";
 
 const BUDGETS = ["Under ₹50k", "₹50k to ₹2L", "₹2L to ₹5L", "₹5L+"];
 
 type Errors = Partial<Record<"name" | "phone", string>>;
 
 const inputCls =
-  "peer w-full border-0 border-b border-ivory/25 bg-transparent px-0 pt-6 pb-3 text-[17px] text-ivory placeholder-transparent transition-colors focus:border-gold focus:ring-0 focus:outline-none aria-[invalid=true]:border-[#e7a3ad]";
+  "peer w-full border-0 border-b border-ivory/25 bg-transparent px-0 pt-6 pb-3 text-base text-ivory placeholder-transparent transition-colors focus:border-gold focus:ring-0 focus:outline-none aria-[invalid=true]:border-[#e7a3ad]";
 const labelCls =
-  "pointer-events-none absolute top-0 left-0 text-[12px] font-semibold tracking-[0.14em] text-mist uppercase transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-[16px] peer-placeholder-shown:font-normal peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-[12px] peer-focus:font-semibold peer-focus:tracking-[0.14em] peer-focus:uppercase";
+  "pointer-events-none absolute top-0 left-0 text-xs font-semibold tracking-[0.14em] text-mist uppercase transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-xs peer-focus:font-semibold peer-focus:tracking-[0.14em] peer-focus:uppercase";
 
 function Field({ id, label, error, ...rest }: { id: string; label: string; error?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -21,7 +22,7 @@ function Field({ id, label, error, ...rest }: { id: string; label: string; error
         {label}
       </label>
       {error && (
-        <p id={`${id}-err`} className="mt-2 text-[13px] text-[#f0b8c0]">
+        <p id={`${id}-err`} className="mt-2 text-sm text-[#f0b8c0]">
           {error}
         </p>
       )}
@@ -39,7 +40,7 @@ export default function Contact() {
     const e: Errors = {};
     if (String(d.get("name") ?? "").trim().length < 2) e.name = "Please tell us your name.";
     const digits = String(d.get("phone") ?? "").replace(/\D/g, "");
-    if (digits.length < 10 || digits.length > 13) e.phone = "Enter a 10-digit mobile number so we can call back.";
+    if (digits.length < 10 || digits.length > 13) e.phone = "Enter your 10 digit mobile number so we can call you back.";
     return e;
   }
 
@@ -47,14 +48,14 @@ export default function Contact() {
     <section id="contact" data-header="dark" className="grain relative bg-emerald py-[clamp(88px,11vw,160px)] text-ivory">
       <div className="container-x grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionLabel no="07" dark>
+          <SectionLabel no="08" dark>
             Start a project
           </SectionLabel>
           <h2 className="display mt-6 text-[clamp(2.8rem,6vw,6rem)]">
             <MaskLines lines={["Let’s make it", <em key="e" className="text-gold">impossible</em>, "to scroll past."]} />
           </h2>
           <Reveal>
-            <dl className="mt-12 grid gap-6 text-[15px] sm:grid-cols-2 lg:grid-cols-1">
+            <dl className="mt-12 grid gap-6 text-base sm:grid-cols-2 lg:grid-cols-1">
               <div>
                 <dt className="label text-mist">WhatsApp / call</dt>
                 <dd className="mt-2">
@@ -135,9 +136,7 @@ export default function Contact() {
               <label htmlFor="service" className="label absolute top-0 left-0 text-mist">
                 What do you need?
               </label>
-              <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-0 bottom-4 h-4 w-4 text-gold" aria-hidden>
-                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              </svg>
+              <CaretDownIcon className="pointer-events-none absolute right-0 bottom-4 h-4 w-4 text-gold" aria-hidden />
             </div>
 
             <fieldset>
@@ -167,12 +166,10 @@ export default function Contact() {
             <div className="flex flex-wrap items-center gap-6">
               <button
                 type="submit"
-                className="inline-flex min-h-13 items-center gap-3 rounded-full bg-gold px-7 py-3.5 text-[15px] font-semibold text-emerald transition-[background-color,transform] hover:bg-ivory active:scale-[0.98]"
+                className="inline-flex min-h-13 items-center gap-3 rounded-full bg-gold px-7 py-3.5 text-base font-semibold text-emerald transition-[background-color,transform] hover:bg-ivory active:scale-[0.98]"
               >
                 Send brief on WhatsApp
-                <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ArrowRightIcon weight="bold" className="h-4 w-4" aria-hidden />
               </button>
               <p role="status" className="text-sm text-mist">
                 {sent ? "Thanks! Your brief is ready in WhatsApp, just hit send." : "We reply within one working day."}

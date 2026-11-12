@@ -10,6 +10,7 @@ import { MaskLines, EASE_LUXE } from "@/components/ui/Reveal";
 import { scrollToY } from "@/components/ui/scrollTo";
 import { useWebGL, WebGLBoundary } from "@/components/ui/webgl";
 import WorkDisplay from "./WorkDisplay";
+import { ArrowsHorizontalIcon, PlayIcon } from "@phosphor-icons/react/dist/ssr";
 
 const HeroCameraScene = dynamic(() => import("@/components/three/HeroCameraScene"), { ssr: false });
 
@@ -115,23 +116,20 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.1, ease: EASE_LUXE }}
             >
-              <p className="hidden text-[15px] leading-relaxed text-ivory/75 md:block">
+              <p className="hidden text-base text-ivory/75 md:block">
                 Photography, reels, 3D and performance ads for jewellery brands. Built to make metal glow, stones sparkle and products sell.
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                 <button
                   type="button"
                   onClick={openDisplay}
-                  className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-gold px-6 text-[15px] font-semibold text-emerald transition-[background-color,transform] duration-300 hover:bg-ivory active:scale-[0.98]"
+                  className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-gold px-6 text-base font-semibold text-emerald transition-[background-color,transform] duration-300 hover:bg-ivory active:scale-[0.98]"
                 >
                   <span className="grid h-6 w-6 place-items-center rounded-full bg-emerald text-gold transition-transform duration-300 group-hover:scale-110">
-                    <svg viewBox="0 0 10 10" className="ml-0.5 h-2.5 w-2.5" aria-hidden><path d="M1 0l9 5-9 5z" fill="currentColor" /></svg>
+                    <PlayIcon weight="fill" className="ml-0.5 h-3 w-3" aria-hidden />
                   </span>
                   See our work
                 </button>
-                <a href="#contact" className="text-[15px] font-medium underline decoration-gold/60 underline-offset-[6px] transition-colors hover:text-gold">
-                  Start a project
-                </a>
               </div>
             </motion.div>
 
@@ -142,9 +140,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 2.6, duration: 1 }}
             >
-              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-                <path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ArrowsHorizontalIcon className="h-4 w-4" aria-hidden />
               Drag to rotate · Click or scroll to see the work
             </motion.p>
           </div>

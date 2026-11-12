@@ -8,6 +8,8 @@ import { SectionLabel } from "@/components/ui/Reveal";
 import { scrollToY } from "@/components/ui/scrollTo";
 import { useMedia } from "@/components/ui/useMedia";
 import { Mockup } from "./journey/Mockups";
+import { TrendUpIcon } from "@phosphor-icons/react/dist/ssr";
+import { SampleTag } from "@/components/ui/Sample";
 
 /*
   Scroll-driven 3D journey through the services, like a camera flying forward:
@@ -72,19 +74,18 @@ function Stop({ i, s, desktop, active }: { i: number; s: MotionValue<number>; de
           <span>Service</span>
         </p>
         <h3 className="display mt-4 text-[clamp(2.6rem,5.2vw,5.2rem)]">{svc.title}</h3>
-        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-mist max-md:text-[14px]">{svc.line}</p>
+        <p className="mt-4 max-w-md text-base text-mist max-md:text-sm">{svc.line}</p>
         <ul className="mt-5 flex flex-wrap gap-2 max-md:hidden">
           {svc.points.map((p) => (
-            <li key={p} className="rounded-full border border-line-dark px-3.5 py-1.5 text-[13px] text-ivory/85">
+            <li key={p} className="rounded-full border border-line-dark px-3.5 py-1.5 text-xs text-ivory/85">
               {p}
             </li>
           ))}
         </ul>
-        <p className="mt-6 inline-flex items-center gap-2 text-[14px] font-semibold text-gold max-md:mt-4">
-          <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-            <path d="M4 16l5-5 4 4 7-8M15 7h5v5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <p className="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-gold max-md:mt-4">
+          <TrendUpIcon weight="bold" className="h-4 w-4" aria-hidden />
           {svc.result}
+          <SampleTag dark />
         </p>
       </motion.article>
     </>
@@ -102,8 +103,11 @@ function StaticJourney() {
               {svc.no} / {String(N).padStart(2, "0")}
             </p>
             <h3 className="display mt-4 text-[clamp(2.4rem,5vw,4.6rem)]">{svc.title}</h3>
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-mist">{svc.line}</p>
-            <p className="mt-5 text-[14px] font-semibold text-gold">{svc.result}</p>
+            <p className="mt-4 max-w-md text-base text-mist">{svc.line}</p>
+            <p className="mt-5 flex flex-wrap items-center gap-2 text-sm font-semibold text-gold">
+              {svc.result}
+              <SampleTag dark />
+            </p>
           </div>
           <div className="relative h-[28rem] text-[clamp(6px,0.8vw,11px)]" aria-hidden>
             <div className="absolute top-1/2 left-1/2 h-0 w-0">
@@ -144,7 +148,7 @@ export default function ServiceJourney() {
       <h2 className="display mt-6 max-w-4xl text-[clamp(2.6rem,6vw,6rem)] text-ivory">
         Everything a jewellery brand needs to be seen.
       </h2>
-      <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-mist">
+      <p className="mt-6 max-w-lg text-base text-mist">
         Scroll through what we do. Each service comes with the kind of work it delivers.
       </p>
     </div>
@@ -200,8 +204,8 @@ export default function ServiceJourney() {
                       active === i ? "text-gold" : "text-ivory/45 hover:text-ivory/80"
                     }`}
                   >
-                    {desktop && <span className="text-[12px] font-medium opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{svc.title}</span>}
-                    <span className="text-[11px] font-semibold tabular-nums">{svc.no}</span>
+                    {desktop && <span className="text-xs font-medium opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{svc.title}</span>}
+                    <span className="text-xs font-semibold tabular-nums">{svc.no}</span>
                     <span className={`block bg-current transition-all ${desktop ? `h-px ${active === i ? "w-10" : "w-5"}` : "h-[2px] w-full"}`} />
                   </button>
                 </li>
