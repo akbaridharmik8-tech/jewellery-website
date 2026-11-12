@@ -11,7 +11,7 @@ function Answer({ text }: { text: string }) {
     <>
       {text.split(SPLIT).map((part, i) =>
         IS_PLACEHOLDER.test(part) ? (
-          <mark key={i} title="Fill this in before launch" className="rounded-sm border border-dashed border-gold-ink/50 bg-gold/15 px-1 text-ink">
+          <mark key={i} title="Fill this in before launch" className="rounded-sm border border-dashed border-taupe/50 bg-champagne/15 px-1 text-ink">
             {part.slice(2, -2)}
           </mark>
         ) : (
@@ -34,12 +34,12 @@ export default function Faq() {
     <section id="faq" data-header="light" className="bg-ivory py-24 md:py-32">
       <div className="container-x grid gap-12 md:grid-cols-12">
         <div className="md:col-span-4">
-          <SectionLabel no="07">FAQ</SectionLabel>
+          <SectionLabel no="06">FAQ</SectionLabel>
           <h2 className="display mt-6 text-[clamp(2.6rem,5vw,5rem)]">
             <MaskLines lines={["Questions brands", "ask us first."]} />
           </h2>
           <Reveal>
-            <p className="mt-6 max-w-sm text-base text-stone">
+            <p className="mt-6 max-w-sm text-base text-taupe">
               Something else on your mind? Ask it in the brief below and we answer within one working day.
             </p>
           </Reveal>
@@ -49,11 +49,11 @@ export default function Faq() {
           <div className="border-t border-line-light">
             {faq.map((f) => (
               <details key={f.q} className="group border-b border-line-light">
-                <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium transition-colors hover:text-gold-ink [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium transition-colors hover:text-taupe [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <PlusIcon className="h-5 w-5 shrink-0 text-gold-ink transition-transform duration-500 group-open:rotate-45" aria-hidden />
+                  <PlusIcon className="h-5 w-5 shrink-0 text-taupe transition-transform duration-500 group-open:rotate-45" aria-hidden />
                 </summary>
-                <p className="faq-answer max-w-2xl pb-6 text-base text-stone">
+                <p className="faq-answer max-w-2xl pb-6 text-base text-taupe">
                   <Answer text={f.a} />
                 </p>
               </details>

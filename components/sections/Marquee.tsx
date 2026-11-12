@@ -2,7 +2,7 @@ import { services } from "@/lib/site";
 import { DiamondIcon } from "@phosphor-icons/react/dist/ssr";
 
 const Gem = () => (
-  <DiamondIcon weight="light" className="mx-8 h-4 w-4 shrink-0 text-gold/70" aria-hidden />
+  <DiamondIcon weight="light" className="mx-8 h-4 w-4 shrink-0 text-champagne/70" aria-hidden />
 );
 
 export default function Marquee() {
@@ -18,7 +18,7 @@ export default function Marquee() {
     </div>
   );
   return (
-    <div data-header="dark" className="overflow-hidden border-y border-line-dark bg-emerald-2 py-6 text-gold" aria-label="Services">
+    <div data-header="dark" className="overflow-hidden border-y border-line-dark bg-ink py-6 text-champagne" aria-label="Services">
       <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
         {row}
         <div aria-hidden className="flex">{row}</div>

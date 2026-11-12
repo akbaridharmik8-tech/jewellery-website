@@ -9,7 +9,7 @@ export function SampleTag({ dark = false }: { dark?: boolean }) {
     <span
       title={TITLE}
       className={`inline-flex shrink-0 items-center rounded-full border border-dashed px-2 py-0.5 align-middle text-xs font-semibold ${
-        dark ? "border-ivory/40 text-ivory/70" : "border-ink/30 text-stone"
+        dark ? "border-ivory/40 text-ivory/70" : "border-ink/30 text-taupe"
       }`}
     >
       Sample
@@ -21,7 +21,7 @@ export function SampleTag({ dark = false }: { dark?: boolean }) {
 export function SampleNote({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   if (!site.sampleContent) return null;
   return (
-    <p className={`mt-6 flex items-center gap-2 text-xs ${dark ? "text-mist" : "text-stone"}`}>
+    <p className={`mt-6 flex items-center gap-2 text-xs ${dark ? "text-greige" : "text-taupe"}`}>
       <SampleTag dark={dark} />
       {children}
     </p>

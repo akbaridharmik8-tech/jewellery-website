@@ -1,23 +1,21 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Verdane design tokens (see DESIGN.md for the reasoning)
-   60 · ivory/bone neutrals  30 · emerald darks  10 · champagne gold  <2 · garnet
+   Verdane design tokens: Pantone-matched brand palette (see DESIGN.md / /brand)
+   60 · ivory & cream   30 · onyx & ink   10 · champagne
+   HEX values are screen approximations of the Pantone references.
    ========================================================================== */
 @theme {
-  --color-ivory: #f4efe6;
-  --color-bone: #e9e1d3;
-  --color-ink: #16130f;
-  --color-stone: #5e574d;
-  --color-emerald: #0c2620;
-  --color-emerald-2: #123a31;
-  --color-emerald-3: #1c4a3f;
-  --color-gold: #cfae72;
-  --color-gold-ink: #7e5f2b;
-  --color-garnet: #8e2b3a;
-  --color-mist: #a9b8b1;
-  --color-line-dark: rgb(207 174 114 / 0.18);
-  --color-line-light: rgb(22 19 15 / 0.12);
+  --color-ivory: #f2f0eb;          /* PANTONE 11-0602 TCX Snow White: page background */
+  --color-cream: #f5ecd2;          /* PANTONE 11-0507 TCX Winter White: alternate light surface */
+  --color-ink: #222223;            /* PANTONE Neutral Black C: text on light, deepest dark */
+  --color-onyx: #2d2926;           /* PANTONE Black C: dark sections */
+  --color-champagne: #ceb888;      /* PANTONE 7502 C: accent, CTAs */
+  --color-champagne-deep: #a89968; /* PANTONE 7503 C: decorative accent, text on dark only */
+  --color-taupe: #6e6259;          /* PANTONE Warm Gray 11 C: muted text and labels on light */
+  --color-greige: #cbc4bc;         /* PANTONE Warm Gray 2 C: muted text on dark */
+  --color-line-dark: rgb(206 184 136 / 0.2);
+  --color-line-light: rgb(34 34 35 / 0.12);
 
   --font-display: var(--font-instrument), "Times New Roman", serif;
   --font-sans: var(--font-manrope), system-ui, sans-serif;
@@ -47,11 +45,11 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  ::selection { background: var(--color-gold); color: var(--color-emerald); }
+  ::selection { background: var(--color-champagne); color: var(--color-ink); }
   /* No orphaned words: balance headings, keep body copy from leaving one word alone */
   h1, h2, h3, h4, h5, h6, blockquote { text-wrap: balance; }
   p, li, dd, figcaption { text-wrap: pretty; }
-  :focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--color-champagne); outline-offset: 3px; }
 }
 
 @layer components {

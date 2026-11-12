@@ -17,7 +17,7 @@ function Word({ word, i, total, progress }: { word: string; i: number; total: nu
   const opacity = useTransform(progress, [start, start + 2 / total], [0.3, 1], { ease: EASE });
   const bare = word.replace(/[^a-z]/gi, "").toLowerCase();
   return (
-    <motion.span style={{ opacity }} className={ACCENT.has(bare) ? "text-gold-ink italic" : undefined}>
+    <motion.span style={{ opacity }} className={ACCENT.has(bare) ? "text-taupe italic" : undefined}>
       {word}{" "}
     </motion.span>
   );
@@ -34,7 +34,7 @@ export default function Statement() {
       <div className="container-x grid gap-10 md:grid-cols-12">
         <div className="md:col-span-3">
           <SectionLabel no="01">The studio</SectionLabel>
-          <p className="mt-6 max-w-64 text-sm text-stone">
+          <p className="mt-6 max-w-64 text-sm text-taupe">
             {site.brand} has photographed jewellery for {new Date().getFullYear() - site.since} years: bridal houses, diamond brands and family jewellers.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function Statement() {
             ? words.map((w, i) => {
                 const bare = w.replace(/[^a-z]/gi, "").toLowerCase();
                 return (
-                  <span key={i} className={ACCENT.has(bare) ? "text-gold-ink italic" : undefined}>
+                  <span key={i} className={ACCENT.has(bare) ? "text-taupe italic" : undefined}>
                     {w}{" "}
                   </span>
                 );

@@ -20,7 +20,7 @@ function useMaterials() {
       rubber: new THREE.MeshStandardMaterial({ color: "#0f0f0f", roughness: 0.95, metalness: 0, envMapIntensity: 0.5 }),
       metal: new THREE.MeshStandardMaterial({ color: "#c2c2c2", roughness: 0.22, metalness: 1 }),
       darkMetal: new THREE.MeshStandardMaterial({ color: "#2a2a2a", roughness: 0.3, metalness: 1 }),
-      gold: new THREE.MeshStandardMaterial({ color: "#d8b06a", roughness: 0.2, metalness: 1 }),
+      gold: new THREE.MeshStandardMaterial({ color: "#ceb888", roughness: 0.2, metalness: 1 }),
       glass: new THREE.MeshPhysicalMaterial({
         color: "#0b0f14",
         roughness: 0.02,
@@ -143,7 +143,7 @@ function ModeDial({ m }: { m: ReturnType<typeof useMaterials> }) {
 
 type Props = { screen: THREE.Texture | null; screenColor?: string } & ThreeElements["group"];
 
-export const DslrCamera = forwardRef<THREE.Group, Props>(function DslrCamera({ screen, screenColor = "#0c2620", ...rest }, ref) {
+export const DslrCamera = forwardRef<THREE.Group, Props>(function DslrCamera({ screen, screenColor = "#2d2926", ...rest }, ref) {
   const m = useMaterials();
   const screenMat = useMemo(() => new THREE.MeshBasicMaterial({ toneMapped: false }), []);
   const screenBg = useMemo(() => new THREE.MeshBasicMaterial({ toneMapped: false }), []);

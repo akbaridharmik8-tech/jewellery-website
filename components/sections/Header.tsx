@@ -8,7 +8,6 @@ import { EASE_LUXE } from "@/components/ui/Reveal";
 
 const NAV = [
   { id: "services", label: "Services" },
-  { id: "3d", label: "3D" },
   { id: "process", label: "Process" },
   { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
@@ -81,12 +80,12 @@ export default function Header() {
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-4">
       <div
         className={`pointer-events-auto flex w-full items-center justify-between gap-6 rounded-full border py-2 pr-2 pl-6 backdrop-blur-xl transition-colors duration-500 md:w-auto ${
-          onDark ? "border-ivory/10 bg-emerald/70 text-ivory" : "border-ink/10 bg-ivory/75 text-ink"
+          onDark ? "border-ivory/10 bg-onyx/70 text-ivory" : "border-ink/10 bg-ivory/75 text-ink"
         }`}
       >
         <a href="#top" className="flex items-baseline gap-2" aria-label={`${site.brand} home`}>
           <span className="display text-3xl leading-none">{site.brand}</span>
-          <span className={`label hidden sm:inline ${onDark ? "text-gold" : "text-gold-ink"}`}>Studio</span>
+          <span className={`label hidden sm:inline ${onDark ? "text-champagne" : "text-taupe"}`}>Studio</span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:block">
@@ -99,7 +98,7 @@ export default function Header() {
                     href={`#${n.id}`}
                     aria-current={active ? "true" : undefined}
                     className={`relative flex min-h-10 items-center rounded-full px-3 text-sm font-medium transition-colors ${
-                      active ? (onDark ? "bg-ivory/10 text-gold" : "bg-ink/5 text-gold-ink") : onDark ? "hover:bg-ivory/10" : "hover:bg-ink/5"
+                      active ? (onDark ? "bg-ivory/10 text-champagne" : "bg-ink/5 text-taupe") : onDark ? "hover:bg-ivory/10" : "hover:bg-ink/5"
                     }`}
                   >
                     {n.label}
@@ -114,7 +113,7 @@ export default function Header() {
           <a
             href="#contact"
             className={`hidden min-h-10 items-center rounded-full px-4 text-sm font-semibold transition-[background-color,color,transform] active:scale-[0.98] md:inline-flex ${
-              onDark ? "bg-gold text-emerald hover:bg-ivory" : "bg-ink text-ivory hover:bg-emerald"
+              onDark ? "bg-champagne text-onyx hover:bg-ivory" : "bg-ink text-ivory hover:bg-onyx"
             }`}
           >
             Start a project
@@ -142,7 +141,7 @@ export default function Header() {
           <motion.nav
             id="mobile-menu"
             aria-label="Mobile"
-            className="pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-between bg-emerald/95 px-4 pt-24 pb-10 text-ivory backdrop-blur-2xl md:hidden"
+            className="pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-between bg-onyx/95 px-4 pt-24 pb-10 text-ivory backdrop-blur-2xl md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -160,9 +159,9 @@ export default function Header() {
                     href={`#${n.id}`}
                     onClick={() => setMenu(false)}
                     aria-current={current === n.id ? "true" : undefined}
-                    className={`display flex items-baseline gap-4 border-b border-line-dark py-3 text-5xl ${current === n.id ? "text-gold" : ""}`}
+                    className={`display flex items-baseline gap-4 border-b border-line-dark py-3 text-5xl ${current === n.id ? "text-champagne" : ""}`}
                   >
-                    <span className="label text-gold">0{i + 1}</span>
+                    <span className="label text-champagne">0{i + 1}</span>
                     {n.label}
                   </a>
                 </motion.li>
@@ -172,11 +171,11 @@ export default function Header() {
               <a
                 href="#contact"
                 onClick={() => setMenu(false)}
-                className="flex min-h-12 items-center justify-center rounded-full bg-gold text-base font-semibold text-emerald active:scale-[0.98]"
+                className="flex min-h-12 items-center justify-center rounded-full bg-champagne text-base font-semibold text-onyx active:scale-[0.98]"
               >
                 Start a project
               </a>
-              <div className="space-y-2 text-sm text-mist">
+              <div className="space-y-2 text-sm text-greige">
                 <p>{site.email}</p>
                 <p>{site.phone}</p>
               </div>

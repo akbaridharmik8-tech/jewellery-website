@@ -23,7 +23,7 @@ function Count({ to, decimals = 0, suffix }: { to: number; decimals?: number; su
   return (
     <span className="tabular-nums">
       <span ref={ref}>{to.toFixed(decimals)}</span>
-      <span className="text-gold-ink">{suffix}</span>
+      <span className="text-taupe">{suffix}</span>
     </span>
   );
 }
@@ -36,7 +36,7 @@ export default function Results() {
         <dl className="mt-12 grid grid-cols-2 border-t border-line-light lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06} className={`flex flex-col-reverse border-b border-line-light py-10 pr-4 lg:border-b-0 ${i % 2 ? "pl-6" : ""} lg:pl-0 ${i ? "lg:border-l lg:pl-8" : ""}`}>
-              <dt className="mt-3 text-sm text-stone">{s.label}</dt>
+              <dt className="mt-3 text-sm text-taupe">{s.label}</dt>
               <dd className="display text-[clamp(3.4rem,7vw,6.5rem)] leading-none">
                 <Count to={s.value} decimals={s.decimals} suffix={s.suffix} />
               </dd>

@@ -1,40 +1,45 @@
 # Design guidelines
 
-The site follows the **landing-page-design** skill (`.claude/skills/landing-page-design`, MIT, from elayadesign/ai-design-skills), applied selectively. Its rules for copy, type scale, spacing, motion curve, states, navigation and ship requirements apply. The brand exceptions below (serif display font, emerald palette, lighting gradients) are deliberate owner decisions, and `CLAUDE.md` lists them.
+The site follows the **landing-page-design** skill (`.claude/skills/landing-page-design`, MIT, from elayadesign/ai-design-skills), applied selectively. Its rules for copy, type scale, spacing, motion curve, states, navigation and ship requirements apply. The brand exceptions below (serif display font, Pantone-matched palette, lighting gradients) are deliberate owner decisions, and `CLAUDE.md` lists them.
 
 These rules keep the site looking deliberate and premium rather than templated. Follow them when you add or change anything.
 
-## 1. Colour: emerald, champagne, garnet
+## 1. Colour: ivory, champagne and black (Pantone-matched)
 
-**Theory:** emerald green (hue ≈160°) is the base. It's the classic jewel tone, and it reads as wealth, calm and trust. The accents are its **split complements**: a warm champagne gold (≈38°) and a deep garnet (≈350°). Warm against cool creates contrast without clashing, and gold literally echoes the product.
+**Theory:** this is a near-achromatic palette with a single warm metallic accent, the way fine jewellery is shown in a vitrine. The neutrals stay quiet so the photography carries the colour: gold, stones and skin tones never compete with a coloured background. Every neutral is tinted warm, toward champagne, so the surfaces read as one family. Champagne is the only hue, and it echoes the product itself.
 
-**Proportion (60 · 30 · 10):**
+**Palette.** The Pantone code is the reference. HEX values are screen approximations (Pantone publishes no official HEX), so check print work against a physical Pantone guide. The same data drives the site tokens in `app/globals.css`, `lib/brand.ts` and the `/brand` page.
 
-| Share | Role | Tokens |
-|---|---|---|
-| 60% | Light neutrals: page background, reading areas | `ivory #F4EFE6`, `bone #E9E1D3` |
-| 30% | Emerald darks: hero, 3D, process, contact, footer | `emerald #0C2620`, `emerald-2 #123A31` |
-| 10% | Champagne gold: CTAs, labels, key highlights | `gold #CFAE72`, `gold-ink #7E5F2B` (gold for text on light) |
-| under 2% | Garnet: a single work backdrop only | `garnet #8E2B3A` |
+| Token | Name | Pantone | HEX (screen) | Role |
+|---|---|---|---|---|
+| `ivory` | Ivory | 11-0602 TCX Snow White | #F2F0EB | Page background |
+| `cream` | Cream | 11-0507 TCX Winter White | #F5ECD2 | Alternate light sections, as a 50% tint over ivory |
+| `onyx` | Onyx | Black C | #2D2926 | Dark sections |
+| `ink` | Ink | Neutral Black C | #222223 | Text on light, deepest darks (marquee, process, footer) |
+| `champagne` | Champagne | 7502 C | #CEB888 | Accent: CTAs, labels, one highlighted word |
+| `champagne-deep` | Deep champagne | 7503 C | #A89968 | Decorative detail; text on dark only |
+| `taupe` | Taupe | Warm Gray 11 C | #6E6259 | Secondary text and labels on light |
+| `greige` | Greige | Warm Gray 2 C | #CBC4BC | Secondary text on dark |
 
-The neutrals are tinted warm (toward gold) rather than pure white or grey, so every surface belongs to the same family. Dark and light sections alternate down the page to give it rhythm.
+**Proportion (60 · 30 · 10):** 60% ivory and cream, 30% onyx and ink, 10% champagne. Dark and light sections alternate down the page to give it rhythm.
 
-**Contrast (WCAG 2.1, all pairs used for text):**
+**Contrast (WCAG 2.1, every pair used for text):**
 
 | Text on background | Ratio | Passes |
 |---|---|---|
-| ink on ivory | 16.2 : 1 | AAA |
-| stone on ivory | 6.2 : 1 | AA |
-| gold-ink on ivory | 5.2 : 1 | AA |
-| ivory on emerald | 14.0 : 1 | AAA |
-| gold on emerald | 7.6 : 1 | AAA |
-| mist on emerald | 7.8 : 1 | AAA |
-| gold on emerald-2 | 5.9 : 1 | AA |
+| ink on ivory | 14.0 : 1 | AAA |
+| taupe on ivory | 5.2 : 1 | AA |
+| ivory on onyx | 12.7 : 1 | AAA |
+| champagne on onyx | 7.4 : 1 | AAA |
+| greige on onyx | 8.3 : 1 | AAA |
+| deep champagne on onyx | 5.1 : 1 | AA |
+| onyx on champagne (buttons) | 7.4 : 1 | AAA |
 
 **Rules:**
-- Never put `gold` text on a light background. Use `gold-ink` instead.
-- Gold is for things that matter (CTAs, labels, one highlighted word). If it's everywhere, it stops meaning anything.
-- No gradients for decoration. The only gradients are lighting: the studio key light in the hero, vignettes and floor falloff.
+- Never put `champagne` or `champagne-deep` text on a light background (2.5 : 1). Use `taupe` or `ink` instead.
+- Champagne is for things that matter: CTAs, labels and one highlighted word. If it's everywhere, it stops meaning anything.
+- No decorative gradients. The only gradients are lighting: a soft champagne key light over onyx in the hero and the services journey, plus vignettes and photo scrims.
+- Form errors use a soft rose (`#F0B8C0` on dark). This is a functional colour, not part of the brand palette.
 
 ## 2. Typography
 - **Display:** Instrument Serif, used for headlines, numbers and quotes. Tight leading (0.92) and slight negative tracking, set large (`clamp()` up to about 9.5rem). Italic is reserved for one emphasised word per headline.
@@ -55,9 +60,9 @@ The neutrals are tinted warm (toward gold) rather than pure white or grey, so ev
 - 3D scenes pause when off-screen. With `prefers-reduced-motion`, the camera doesn't spin, Lenis is off, and Motion skips transform animations.
 
 ## 5. 3D
-- One light rig (`StudioLights`) is shared by every scene, so metal and stones look consistent everywhere.
-- The camera body stays matte black. The **gold ring on the lens** is its only warm note, which ties it to the palette.
-- Keep scenes lightweight: `dpr ≤ 1.75`, 256px contact shadows, and instancing for repeated parts (chain links, pavé, dial ribs).
+- The only 3D element is the DSLR camera in the hero. 3D jewellery was removed at the owner's request: the work is shown as real photography.
+- The camera body stays matte black. The **champagne ring on the lens** is its only warm note, which ties it to the palette.
+- Keep the scene lightweight: `dpr ≤ 1.75` and 256px contact shadows, and pause rendering when it is off-screen.
 
 ## 6. Things to avoid (they make a site look generic or AI-made)
 Glassmorphism cards, purple/blue gradient blobs, emoji icons, centred text everywhere, stock "rocket" illustrations, more than one accent colour per section, and drop shadows on everything.

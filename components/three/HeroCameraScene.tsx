@@ -18,44 +18,33 @@ const range = (x: number, a: number, b: number) => clamp01((x - a) / (b - a));
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
-/** Scale/offset a texture so it is "contained" or "covers" a plane of the given aspect. */
-function fitTexture(tex: THREE.Texture, planeAspect: number, mode: "contain" | "cover", pad = 0.86) {
+/** Scale/offset a texture so it covers a plane of the given aspect (like object-fit: cover). */
+function coverTexture(tex: THREE.Texture, planeAspect: number) {
   const img = tex.image as { width: number; height: number } | undefined;
   if (!img?.width) return;
-  const imgAspect = img.width / img.height;
+  const r = planeAspect / (img.width / img.height);
   tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
-  const r = planeAspect / imgAspect;
-  // "contain" leaves a margin (pad) so the frame matches the playback display's layout.
-  const k = mode === "contain" ? 1 / pad : 1;
-  if ((mode === "contain") === r > 1) {
-    tex.repeat.set(r * k, k);
-  } else {
-    tex.repeat.set(k, (1 / r) * k);
-  }
+  if (r > 1) tex.repeat.set(1, 1 / r);
+  else tex.repeat.set(r, 1);
   tex.offset.set((1 - tex.repeat.x) / 2, (1 - tex.repeat.y) / 2);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.needsUpdate = true;
 }
 
-/** Loads the LCD image; if the remote photo fails (offline, CORS), uses the local render instead. */
-function useScreenTexture(src: string, fallback: string) {
-  const [state, setState] = useState<{ texture: THREE.Texture; fallback: boolean } | null>(null);
+/** Loads the LCD image. If it fails (offline, blocked), the screen simply shows its tone colour. */
+function useScreenTexture(src: string) {
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
   useEffect(() => {
+    if (!src) return;
     let alive = true;
     const loader = new THREE.TextureLoader();
     loader.setCrossOrigin("anonymous");
-    const done = (isFallback: boolean) => (t: THREE.Texture) => {
-      if (alive) setState({ texture: t, fallback: isFallback });
-      else t.dispose();
-    };
-    loader.load(src, done(false), undefined, () => {
-      if (src !== fallback) loader.load(fallback, done(true));
-    });
+    loader.load(src, (t) => (alive ? setTexture(t) : t.dispose()), undefined, () => alive && setTexture(null));
     return () => {
       alive = false;
     };
-  }, [src, fallback]);
-  return state;
+  }, [src]);
+  return texture;
 }
 
 type RigProps = {
@@ -64,12 +53,10 @@ type RigProps = {
   drag: React.RefObject<number>;
   onOpen: () => void;
   screenSrc: string;
-  screenFallback: string;
   screenTone: string;
-  screenFit: "contain" | "cover";
 };
 
-function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, screenFit }: RigProps) {
+function Rig({ progress, reduced, drag, screenSrc, screenTone }: RigProps) {
   const dslr = useRef<THREE.Group>(null);
   const holder = useRef<THREE.Group>(null);
   const marker = useMemo(() => new THREE.Object3D(), []);
@@ -80,10 +67,10 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
   const [rect, setRect] = useState<ScreenRect>(PROCEDURAL_SCREEN);
   const onRect = useCallback((r: ScreenRect) => setRect(r), []);
 
-  const screen = useScreenTexture(screenSrc, screenFallback);
+  const screen = useScreenTexture(screenSrc);
   useEffect(() => {
-    if (screen) fitTexture(screen.texture, rect.width / rect.height, screen.fallback ? "contain" : screenFit);
-  }, [screen, screenFit, rect]);
+    if (screen) coverTexture(screen, rect.width / rect.height);
+  }, [screen, rect]);
 
   const s = useRef({ intro: reduced ? 1 : 0, idle: 0, frozen: null as null | { from: number; to: number } });
   const tmp = useMemo(
@@ -163,7 +150,7 @@ function Rig({ progress, reduced, drag, screenSrc, screenFallback, screenTone, s
 
   return (
     <group ref={holder}>
-      <CameraBody ref={dslr} config={cameraModel} screen={screen?.texture ?? null} screenTone={screenTone} onRect={onRect} />
+      <CameraBody ref={dslr} config={cameraModel} screen={screen} screenTone={screenTone} onRect={onRect} />
     </group>
   );
 }
@@ -235,7 +222,7 @@ export default function HeroCameraScene(props: Props) {
           <Rig {...props} reduced={reduced} drag={drag} />
         </Suspense>
         <ContactShadows position={[0, -1.6, 0]} opacity={0.55} scale={12} blur={2.8} far={3} resolution={256} color="#000000" />
-        {!reduced && <Sparkles count={40} scale={[10, 5, 4]} size={2} speed={0.2} opacity={0.5} color="#f3dcae" />}
+        {!reduced && <Sparkles count={40} scale={[10, 5, 4]} size={2} speed={0.2} opacity={0.5} color="#ceb888" />}
       </Canvas>
     </div>
   );

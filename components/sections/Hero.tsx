@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { useLenis } from "lenis/react";
 import { useRef, useState } from "react";
-import { isRender, site, works, workStill } from "@/lib/site";
+import { site, works, workStill } from "@/lib/site";
 import { MaskLines, EASE_LUXE } from "@/components/ui/Reveal";
 import { scrollToY } from "@/components/ui/scrollTo";
 import { useWebGL, WebGLBoundary } from "@/components/ui/webgl";
@@ -43,16 +43,16 @@ export default function Hero() {
   const firstSrc = workStill(first);
 
   return (
-    <section ref={track} id="top" data-header="dark" className="relative h-[300svh] bg-emerald">
+    <section ref={track} id="top" data-header="dark" className="relative h-[300svh] bg-onyx">
       <div className="grain sticky top-0 h-svh overflow-hidden">
         {/* Studio backdrop: a soft key light from above and a floor falloff, nothing decorative */}
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_62%_8%,#1d4a3f_0%,#0c2620_55%,#07170f_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_62%_8%,rgb(206_184_136/0.14)_0%,transparent_55%),radial-gradient(140%_100%_at_50%_0%,#2d2926_0%,#222223_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
 
         {/* Viewfinder frame */}
         <div className="pointer-events-none absolute inset-3 md:inset-6" aria-hidden>
           {["left-0 top-0 border-l border-t", "right-0 top-0 border-r border-t", "left-0 bottom-0 border-l border-b", "right-0 bottom-0 border-r border-b"].map((c) => (
-            <span key={c} className={`absolute h-6 w-6 border-gold/40 md:h-10 md:w-10 ${c}`} />
+            <span key={c} className={`absolute h-6 w-6 border-champagne/40 md:h-10 md:w-10 ${c}`} />
           ))}
         </div>
 
@@ -72,9 +72,7 @@ export default function Hero() {
                   progress={scrollYProgress}
                   onOpen={openDisplay}
                   screenSrc={firstSrc}
-                  screenFallback={first.fallback}
                   screenTone={first.tone}
-                  screenFit={isRender(firstSrc) ? "contain" : "cover"}
                 />
               </WebGLBoundary>
             );
@@ -88,7 +86,7 @@ export default function Hero() {
         >
           <div className="container-x relative h-full">
             <motion.p
-              className="label absolute top-24 text-gold md:top-28"
+              className="label absolute top-24 text-champagne md:top-28"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -104,7 +102,7 @@ export default function Hero() {
                   "We shoot",
                   "jewellery",
                   <>
-                    that <em className="text-gold">sells.</em>
+                    that <em className="text-champagne">sells.</em>
                   </>,
                 ]}
               />
@@ -117,15 +115,15 @@ export default function Hero() {
               transition={{ duration: 1, delay: 1.1, ease: EASE_LUXE }}
             >
               <p className="hidden text-base text-ivory/75 md:block">
-                Photography, reels, 3D and performance ads for jewellery brands. Built to make metal glow, stones sparkle and products sell.
+                Photography, reels, social and performance ads for jewellery brands. Built to make metal glow, stones sparkle and products sell.
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                 <button
                   type="button"
                   onClick={openDisplay}
-                  className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-gold px-6 text-base font-semibold text-emerald transition-[background-color,transform] duration-300 hover:bg-ivory active:scale-[0.98]"
+                  className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-champagne px-6 text-base font-semibold text-onyx transition-[background-color,transform] duration-300 hover:bg-ivory active:scale-[0.98]"
                 >
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-emerald text-gold transition-transform duration-300 group-hover:scale-110">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-onyx text-champagne transition-transform duration-300 group-hover:scale-110">
                     <PlayIcon weight="fill" className="ml-0.5 h-3 w-3" aria-hidden />
                   </span>
                   See our work

@@ -1,19 +1,17 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { ContactShadows, useTexture } from "@react-three/drei";
+import { ContactShadows } from "@react-three/drei";
 import { Suspense } from "react";
 import * as THREE from "three";
 import { DslrCamera } from "./DslrCamera";
 import { StudioLights } from "./StudioLights";
 
 function Cam({ angle }: { angle: number }) {
-  const tex = useTexture("/renders/solitaire-ring.png");
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return <DslrCamera screen={tex} rotation={[0.18, angle, 0]} position={[0, -0.1, 0]} scale={0.9} />;
+  return <DslrCamera screen={null} rotation={[0.18, angle, 0]} position={[0, -0.1, 0]} scale={0.9} />;
 }
 
-/** Poster / QA render of the DSLR. /studio?model=camera&angle=-0.6 */
+/** Poster / QA render of the DSLR. /studio?angle=-0.55 */
 export default function CameraRender({ angle }: { angle: number }) {
   return (
     <Canvas

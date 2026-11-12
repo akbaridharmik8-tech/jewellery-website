@@ -74,9 +74,9 @@ export function MaskLines({
 /** Small uppercase label with a hairline rule, used to open each section. */
 export function SectionLabel({ no, children, dark = false }: { no: string; children: React.ReactNode; dark?: boolean }) {
   return (
-    <div className={`label flex items-center gap-4 ${dark ? "text-gold" : "text-gold-ink"}`}>
+    <div className={`label flex items-center gap-4 ${dark ? "text-champagne" : "text-taupe"}`}>
       <span>{no}</span>
-      <span className={`h-px w-10 ${dark ? "bg-gold/50" : "bg-gold-ink/40"}`} />
+      <span className={`h-px w-10 ${dark ? "bg-champagne/50" : "bg-taupe/40"}`} />
       <span>{children}</span>
     </div>
   );

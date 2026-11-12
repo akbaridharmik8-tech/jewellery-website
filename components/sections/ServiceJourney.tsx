@@ -12,7 +12,7 @@ import { TrendUpIcon } from "@phosphor-icons/react/dist/ssr";
 import { SampleTag } from "@/components/ui/Sample";
 
 /*
-  Scroll-driven 3D journey through the services, like a camera flying forward:
+  Scroll-driven depth journey through the services, like a camera flying forward:
   each service's work floats in depth on one side, its name and pitch on the
   other. `s` is the continuous stop position: s = i means stop i is in focus.
 */
@@ -66,15 +66,15 @@ function Stop({ i, s, desktop, active }: { i: number; s: MotionValue<number>; de
         style={{ opacity: textOpacity, y: textY }}
         aria-hidden={!active}
       >
-        <p className="label flex items-center gap-3 text-gold">
+        <p className="label flex items-center gap-3 text-champagne">
           <span className="tabular-nums">
             {svc.no} / {String(N).padStart(2, "0")}
           </span>
-          <span className="h-px w-8 bg-gold/50" />
+          <span className="h-px w-8 bg-champagne/50" />
           <span>Service</span>
         </p>
         <h3 className="display mt-4 text-[clamp(2.6rem,5.2vw,5.2rem)]">{svc.title}</h3>
-        <p className="mt-4 max-w-md text-base text-mist max-md:text-sm">{svc.line}</p>
+        <p className="mt-4 max-w-md text-base text-greige max-md:text-sm">{svc.line}</p>
         <ul className="mt-5 flex flex-wrap gap-2 max-md:hidden">
           {svc.points.map((p) => (
             <li key={p} className="rounded-full border border-line-dark px-3.5 py-1.5 text-xs text-ivory/85">
@@ -82,7 +82,7 @@ function Stop({ i, s, desktop, active }: { i: number; s: MotionValue<number>; de
             </li>
           ))}
         </ul>
-        <p className="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-gold max-md:mt-4">
+        <p className="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-champagne max-md:mt-4">
           <TrendUpIcon weight="bold" className="h-4 w-4" aria-hidden />
           {svc.result}
           <SampleTag dark />
@@ -99,12 +99,12 @@ function StaticJourney() {
       {services.map((svc, i) => (
         <div key={svc.no} className="grid items-center gap-10 md:grid-cols-2">
           <div className={i % 2 ? "md:order-2" : ""}>
-            <p className="label text-gold">
+            <p className="label text-champagne">
               {svc.no} / {String(N).padStart(2, "0")}
             </p>
             <h3 className="display mt-4 text-[clamp(2.4rem,5vw,4.6rem)]">{svc.title}</h3>
-            <p className="mt-4 max-w-md text-base text-mist">{svc.line}</p>
-            <p className="mt-5 flex flex-wrap items-center gap-2 text-sm font-semibold text-gold">
+            <p className="mt-4 max-w-md text-base text-greige">{svc.line}</p>
+            <p className="mt-5 flex flex-wrap items-center gap-2 text-sm font-semibold text-champagne">
               {svc.result}
               <SampleTag dark />
             </p>
@@ -148,7 +148,7 @@ export default function ServiceJourney() {
       <h2 className="display mt-6 max-w-4xl text-[clamp(2.6rem,6vw,6rem)] text-ivory">
         Everything a jewellery brand needs to be seen.
       </h2>
-      <p className="mt-6 max-w-lg text-base text-mist">
+      <p className="mt-6 max-w-lg text-base text-greige">
         Scroll through what we do. Each service comes with the kind of work it delivers.
       </p>
     </div>
@@ -156,7 +156,7 @@ export default function ServiceJourney() {
 
   if (reduced) {
     return (
-      <section id="services" data-header="dark" className="grain relative bg-emerald text-ivory">
+      <section id="services" data-header="dark" className="grain relative bg-onyx text-ivory">
         {intro}
         <StaticJourney />
       </section>
@@ -164,18 +164,18 @@ export default function ServiceJourney() {
   }
 
   return (
-    <section id="services" data-header="dark" className="relative bg-emerald text-ivory">
+    <section id="services" data-header="dark" className="relative bg-onyx text-ivory">
       {intro}
       <div ref={track} className="relative" style={{ height: `${N * 115 + 60}svh` }}>
         <div className="grain sticky top-0 h-svh overflow-hidden [perspective:1100px] [perspective-origin:50%_42%]">
-          {/* Depth: a soft horizon glow and a gold floor grid that streams past */}
-          <div className="absolute inset-0 bg-[radial-gradient(90%_60%_at_50%_42%,#1d4a3f_0%,#0c2620_55%,#06130e_100%)]" />
+          {/* Depth: a soft horizon glow and a champagne floor grid that streams past */}
+          <div className="absolute inset-0 bg-[radial-gradient(90%_60%_at_50%_42%,rgb(206_184_136/0.12)_0%,transparent_60%),radial-gradient(120%_100%_at_50%_42%,#2d2926_0%,#222223_100%)]" />
           <div className="pointer-events-none absolute inset-x-[-50%] bottom-[-30%] h-[90%] origin-top [transform:rotateX(72deg)] [mask-image:linear-gradient(to_bottom,transparent,black_35%,black)]">
             <motion.div
               className="absolute inset-0 opacity-[0.22]"
               style={{
                 backgroundImage:
-                  "linear-gradient(to right, rgb(207 174 114 / .6) 1px, transparent 1px), linear-gradient(to bottom, rgb(207 174 114 / .6) 1px, transparent 1px)",
+                  "linear-gradient(to right, rgb(206 184 136 / .6) 1px, transparent 1px), linear-gradient(to bottom, rgb(206 184 136 / .6) 1px, transparent 1px)",
                 backgroundSize: "120px 120px",
                 backgroundPositionY: floorY,
               }}
@@ -201,7 +201,7 @@ export default function ServiceJourney() {
                     onClick={() => jumpTo(i)}
                     aria-current={active === i}
                     className={`group flex w-full items-center gap-3 text-left transition-colors ${desktop ? "min-h-8 justify-end" : "min-h-11 flex-col justify-end gap-1.5"} ${
-                      active === i ? "text-gold" : "text-ivory/45 hover:text-ivory/80"
+                      active === i ? "text-champagne" : "text-ivory/45 hover:text-ivory/80"
                     }`}
                   >
                     {desktop && <span className="text-xs font-medium opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{svc.title}</span>}

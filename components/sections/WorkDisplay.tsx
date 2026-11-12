@@ -69,7 +69,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={work.slug}
-          className="absolute inset-0 flex items-center justify-center pb-[36svh] md:pb-0"
+          className="absolute inset-0"
           initial={{ opacity: 0, scale: 1.06 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.98 }}
@@ -86,14 +86,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
               playsInline
             />
           ) : (
-            <WorkImage
-              src={work.media.src}
-              fallback={work.fallback}
-              alt={`${work.title} for ${work.client}`}
-              sizes="100vw"
-              eager
-              containClassName="aspect-square w-[min(86vw,42svh)] md:w-[86svh] md:max-w-[86vw]"
-            />
+            <WorkImage src={work.media.src} alt={`${work.title} for ${work.client}`} sizes="100vw" eager />
           )}
         </motion.div>
       </AnimatePresence>
@@ -122,7 +115,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
           transition={{ duration: 0.5, delay: 0.3, ease: EASE_LUXE }}
         >
           {["left-0 top-0 border-l border-t", "right-0 top-0 border-r border-t", "left-0 bottom-0 border-l border-b", "right-0 bottom-0 border-r border-b"].map((c) => (
-            <span key={c} className={`absolute h-4 w-4 border-gold ${c}`} />
+            <span key={c} className={`absolute h-4 w-4 border-champagne ${c}`} />
           ))}
         </motion.div>
       </div>
@@ -132,7 +125,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
         <button
           type="button"
           onClick={onBack}
-          className="group flex min-h-11 items-center gap-2 rounded-full border border-ivory/25 bg-black/20 px-4 backdrop-blur-sm transition-colors hover:border-gold hover:text-gold"
+          className="group flex min-h-11 items-center gap-2 rounded-full border border-ivory/25 bg-black/20 px-4 backdrop-blur-sm transition-colors hover:border-champagne hover:text-champagne"
         >
           <CaretLeftIcon className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden />
           Back to camera
@@ -169,13 +162,13 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
               transition={{ duration: 0.6, ease: EASE_LUXE }}
               className="max-w-xl"
             >
-              <p className="label text-gold">{work.service}</p>
+              <p className="label text-champagne">{work.service}</p>
               <h2 className="display mt-3 text-[clamp(2.4rem,6vw,5.2rem)]">{work.title}</h2>
               <p className="mt-3 text-sm text-ivory/75">
                 {work.client} · {work.year}
               </p>
               <p className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-semibold text-emerald">
+                <span className="inline-flex items-center gap-2 rounded-full bg-champagne px-4 py-2 text-xs font-semibold text-onyx">
                   <TrendUpIcon weight="bold" className="h-4 w-4" aria-hidden />
                   {work.result}
                 </span>
@@ -197,7 +190,7 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
                   type="button"
                   onClick={() => go(b.dir)}
                   aria-label={b.label}
-                  className="grid h-12 w-12 place-items-center rounded-full border border-ivory/30 transition-colors hover:border-gold hover:bg-gold hover:text-emerald"
+                  className="grid h-12 w-12 place-items-center rounded-full border border-ivory/30 transition-colors hover:border-champagne hover:bg-champagne hover:text-onyx"
                 >
                   {b.dir < 0 ? <CaretLeftIcon className="h-5 w-5" aria-hidden /> : <CaretRightIcon className="h-5 w-5" aria-hidden />}
                 </button>
@@ -219,16 +212,16 @@ export default function WorkDisplay({ open, onBack }: { open: boolean; onBack: (
             >
               <span
                 className={`relative mb-2 hidden aspect-square w-14 overflow-hidden rounded-[2px] transition-[opacity,box-shadow] duration-300 lg:block ${
-                  i === index ? "opacity-100 ring-1 ring-gold" : "opacity-45 group-hover:opacity-80"
+                  i === index ? "opacity-100 ring-1 ring-champagne" : "opacity-45 group-hover:opacity-80"
                 }`}
                 style={{ backgroundColor: w.tone }}
               >
-                <WorkImage src={workStill(w)} fallback={w.fallback} alt="" sizes="56px" containPadding="p-1" />
+                <WorkImage src={workStill(w)} alt="" sizes="56px" />
               </span>
               <span className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 overflow-hidden rounded-full bg-ivory/20 lg:static lg:block lg:translate-y-0">
                 <span
                   key={i === index ? `run-${index}` : `idle-${i}`}
-                  className="block h-full origin-left bg-gold"
+                  className="block h-full origin-left bg-champagne"
                   style={
                     i === index && open && !reduced
                       ? { animation: `seg ${SLIDE_MS}ms linear forwards`, animationPlayState: paused ? "paused" : "running" }

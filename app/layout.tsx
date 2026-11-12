@@ -16,7 +16,7 @@ const sans = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: 
 export const metadata: Metadata = {
   metadataBase: site.url ? new URL(site.url) : undefined,
   title: `${site.brand} Studio | ${site.descriptor}`,
-  description: "Jewellery photography, reels, 3D product viewers and performance ads for jewellery brands.",
+  description: "Jewellery photography, reels, social media and performance ads for jewellery brands.",
   openGraph: {
     title: `${site.brand} Studio | ${site.descriptor}`,
     description: site.tagline,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#0c2620" };
+export const viewport: Viewport = { themeColor: "#2d2926" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a
           href="#main"
-          className="sr-only z-[100] rounded-full bg-gold px-4 py-2 text-sm font-semibold text-emerald focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[100] rounded-full bg-champagne px-4 py-2 text-sm font-semibold text-onyx focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

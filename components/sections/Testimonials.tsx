@@ -11,10 +11,10 @@ export default function Testimonials() {
   const [i, setI] = useState(0);
   const t = testimonials[i];
   return (
-    <section data-header="light" className="bg-bone py-[clamp(88px,11vw,160px)]">
+    <section data-header="light" className="bg-cream/50 py-[clamp(88px,11vw,160px)]">
       <div className="container-x grid gap-12 md:grid-cols-12">
         <div className="md:col-span-3">
-          <SectionLabel no="06">Clients</SectionLabel>
+          <SectionLabel no="05">Clients</SectionLabel>
           <div className="mt-8 flex gap-2" role="group" aria-label="Choose a testimonial">
             {testimonials.map((_, k) => (
               <button
@@ -41,13 +41,13 @@ export default function Testimonials() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <QuotesIcon weight="fill" className="h-10 w-10 text-gold-ink" aria-hidden />
+              <QuotesIcon weight="fill" className="h-10 w-10 text-taupe" aria-hidden />
               <blockquote className="display mt-8 text-[clamp(2rem,4vw,3.8rem)] leading-[1.1]">{t.quote}</blockquote>
               <figcaption className="mt-10 flex items-center gap-4 text-sm">
                 <span className="h-px w-10 bg-ink/40" />
                 <span>
                   <strong className="font-semibold">{t.name}</strong>
-                  <span className="text-stone">, {t.detail}</span>
+                  <span className="text-taupe">, {t.detail}</span>
                 </span>
                 <SampleTag />
               </figcaption>
